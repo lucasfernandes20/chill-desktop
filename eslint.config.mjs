@@ -1,5 +1,6 @@
 import nx from '@nx/eslint-plugin';
 import globals from 'globals';
+import prettier from 'eslint-config-prettier';
 
 export default [
   ...nx.configs['flat/base'],
@@ -53,4 +54,7 @@ export default [
 
   // Usando as configurações do NX Angular
   ...nx.configs['flat/angular'],
+
+  // Aplica as configurações do Prettier (deve ser o último para sobrescrever regras conflitantes)
+  prettier,
 ];
