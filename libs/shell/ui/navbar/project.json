@@ -2,7 +2,7 @@
   "name": "navbar",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shell/ui/navbar/src",
-  "prefix": "chill-desktop",
+  "prefix": "chill",
   "projectType": "library",
   "tags": [],
   "targets": {

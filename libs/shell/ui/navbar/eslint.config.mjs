@@ -20,7 +20,7 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'chill-desktop',
+          prefix: 'chill',
           style: 'kebab-case',
         },
       ],

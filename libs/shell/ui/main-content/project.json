@@ -2,7 +2,7 @@
   "name": "main-content",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shell/ui/main-content/src",
-  "prefix": "chill-desktop",
+  "prefix": "chill",
   "projectType": "library",
   "tags": [],
   "targets": {
