@@ -12,8 +12,8 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'chillDesktop',
-          style: 'camelCase',
+          prefix: 'chill',
+          style: 'kebab-case',
         },
       ],
       '@angular-eslint/component-selector': [
