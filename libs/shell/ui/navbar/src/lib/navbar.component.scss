@@ -1,8 +1,30 @@
 .navbar-item-app {
-  @apply text-white;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  background-color: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  cursor: pointer;
+  &:hover {
+    .app-title {
+      color: hsl(var(--primary-foreground));
+      scale: 1.1;
+      text-overflow: visible;
+      overflow: visible;
+    }
+  }
+
+  .app-title {
+    transition: all 0.2s ease-in-out;
+    font-size: 0.75rem;
+    text-align: center;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 4rem;
+    font-weight: 400;
+    line-height: 1rem;
+    color: hsl(var(--muted-foreground));
+  }
 }

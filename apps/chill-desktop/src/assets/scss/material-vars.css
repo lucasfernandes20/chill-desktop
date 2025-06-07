@@ -1,0 +1,67 @@
+/* Variáveis do Angular Material baseadas no Tailwind */
+:root {
+  --mat-sys-primary: hsl(var(--primary));
+  --mat-sys-on-primary: hsl(var(--primary-foreground));
+  --mat-sys-primary-container: hsl(var(--primary));
+  --mat-sys-on-primary-container: hsl(var(--primary-foreground));
+  
+  --mat-sys-secondary: hsl(var(--secondary));
+  --mat-sys-on-secondary: hsl(var(--secondary-foreground));
+  --mat-sys-secondary-container: hsl(var(--secondary));
+  --mat-sys-on-secondary-container: hsl(var(--secondary-foreground));
+  
+  --mat-sys-tertiary: hsl(var(--accent));
+  --mat-sys-on-tertiary: hsl(var(--accent-foreground));
+  --mat-sys-tertiary-container: hsl(var(--accent));
+  --mat-sys-on-tertiary-container: hsl(var(--accent-foreground));
+  
+  --mat-sys-error: hsl(var(--destructive));
+  --mat-sys-on-error: hsl(var(--destructive-foreground));
+  --mat-sys-error-container: hsl(var(--destructive));
+  --mat-sys-on-error-container: hsl(var(--destructive-foreground));
+  
+  --mat-sys-surface: hsl(var(--background));
+  --mat-sys-on-surface: hsl(var(--foreground));
+  
+  --mat-sys-surface-container: hsl(var(--card));
+  --mat-sys-on-surface-container: hsl(var(--card-foreground));
+  
+  --mat-sys-outline: hsl(var(--border));
+  --mat-sys-outline-variant: hsl(var(--input));
+
+  --mat-sys-corner-large: 0.75rem;
+  
+  /* Tema violeta */
+  .violet {
+    --mat-sys-primary: hsl(var(--primary));
+    --mat-sys-on-primary: hsl(var(--primary-foreground));
+    --mat-sys-primary-container: hsl(var(--primary));
+    --mat-sys-on-primary-container: hsl(var(--primary-foreground));
+    
+    --mat-sys-secondary: hsl(var(--secondary));
+    --mat-sys-on-secondary: hsl(var(--secondary-foreground));
+    --mat-sys-secondary-container: hsl(var(--secondary));
+    --mat-sys-on-secondary-container: hsl(var(--secondary-foreground));
+    
+    --mat-sys-tertiary: hsl(var(--accent));
+    --mat-sys-on-tertiary: hsl(var(--accent-foreground));
+    --mat-sys-tertiary-container: hsl(var(--accent));
+    --mat-sys-on-tertiary-container: hsl(var(--accent-foreground));
+    
+    --mat-sys-error: hsl(var(--destructive));
+    --mat-sys-on-error: hsl(var(--destructive-foreground));
+    --mat-sys-error-container: hsl(var(--destructive));
+    --mat-sys-on-error-container: hsl(var(--destructive-foreground));
+    
+    --mat-sys-surface: hsl(var(--background));
+    --mat-sys-on-surface: hsl(var(--foreground));
+    
+    --mat-sys-surface-container: hsl(var(--card));
+    --mat-sys-on-surface-container: hsl(var(--card-foreground));
+    
+    --mat-sys-outline: hsl(var(--border));
+    --mat-sys-outline-variant: hsl(var(--input));
+  
+    --mat-sys-corner-large: 0.75rem;
+  } 
+}
