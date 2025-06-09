@@ -1,4 +1,4 @@
-@import './assets/scss/material-vars.css';
+@use './assets/scss/material-vars.scss';
 
 @tailwind base;
 @tailwind components;
