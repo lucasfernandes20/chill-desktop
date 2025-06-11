@@ -1,11 +1,5 @@
 import { isDevMode } from '@angular/core';
-import {
-  ActionReducer,
-  ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
-  MetaReducer,
-} from '@ngrx/store';
+import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { weatherReducer, type WeatherState } from './weather.reducer';
 
 export const chillDesktopFeatureKey = 'chillDesktop';

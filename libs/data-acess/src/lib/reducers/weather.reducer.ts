@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { type Weather } from '@chill-desktop/shared/models';
-import { loadWeather, loadWeatherFailure, loadWeatherSuccess } from '../actions';
+import { loadWeatherAction, loadWeatherFailureAction, loadWeatherSuccessAction } from '../actions';
 
 export const WEATHER_FEATURE_KEY = 'weather';
 
@@ -18,13 +18,13 @@ export const initialState: WeatherState = {
 
 export const weatherReducer = createReducer(
   initialState,
-  on(loadWeather, state => ({ ...state, loading: true })),
-  on(loadWeatherSuccess, (state, { data }) => ({
+  on(loadWeatherAction, state => ({ ...state, loading: true })),
+  on(loadWeatherSuccessAction, (state, { data }) => ({
     ...state,
     weather: data,
     loading: false,
   })),
-  on(loadWeatherFailure, (state, { error }) => ({
+  on(loadWeatherFailureAction, (state, { error }) => ({
     ...state,
     error,
     loading: false,

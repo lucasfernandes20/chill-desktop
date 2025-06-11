@@ -1,14 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 import { type Weather } from '@chill-desktop/shared/models';
 
-export const loadWeather = createAction('[Weather] Load Weather');
+export const loadWeatherAction = createAction('[Weather] Load Weather');
 
-export const loadWeatherSuccess = createAction(
+export const loadWeatherSuccessAction = createAction(
   '[Weather] Load Weather Success',
   props<{ data: Weather }>()
 );
 
-export const loadWeatherFailure = createAction(
+export const loadWeatherFailureAction = createAction(
   '[Weather] Load Weather Failure',
   props<{ error: string }>()
 );

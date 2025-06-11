@@ -5,16 +5,6 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/services",
-        "main": "libs/services/src/index.ts",
-        "tsConfig": "libs/services/tsconfig.lib.json",
-        "assets": []
-      }
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

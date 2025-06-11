@@ -1,6 +1,7 @@
 import nx from '@nx/eslint-plugin';
 import globals from 'globals';
 import prettier from 'eslint-config-prettier';
+import typescriptEslint from '@typescript-eslint/eslint-plugin';
 
 export default [
   ...nx.configs['flat/base'],
@@ -26,6 +27,7 @@ export default [
     },
     plugins: {
       '@nx': nx,
+      '@typescript-eslint': typescriptEslint,
     },
     rules: {
       '@nx/enforce-module-boundaries': [
@@ -41,10 +43,11 @@ export default [
           ],
         },
       ],
+      // Aplica as regras recomendadas do TypeScript ESLint
+      ...typescriptEslint.configs.recommended.rules,
       // Regras gerais recomendadas
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'warn',
-      'no-unused-vars': 'warn',
       'prefer-const': 'warn',
       'no-multiple-empty-lines': ['warn', { max: 1 }],
       'arrow-body-style': ['warn', 'as-needed'],

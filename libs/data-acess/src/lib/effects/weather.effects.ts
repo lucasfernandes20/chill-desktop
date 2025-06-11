@@ -2,25 +2,32 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { loadWeather, loadWeatherFailure, loadWeatherSuccess } from '../actions';
-import { WeatherService } from '../services/weather.service';
+import { loadWeatherAction, loadWeatherFailureAction, loadWeatherSuccessAction } from '../actions';
 import { Action } from '@ngrx/store';
-
+import { WeatherService } from '@chill-desktop/services';
 @Injectable()
 export class WeatherEffects implements OnInitEffects {
-  constructor(private actions$: Actions) {}
+  constructor(private readonly actions$: Actions, private weatherService: WeatherService) {}
+
+  ngrxOnInitEffects(): Action {
+    return loadWeatherAction();
+  }
 
   loadWeather$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadWeather),
-      mergeMap(() => this.weatherService.getWeather().pipe(
-        map(weather => loadWeatherSuccess({ weather })),
-        catchError(error => of(loadWeatherFailure({ error })))
-      ))
+      ofType(loadWeatherAction),
+      mergeMap(() =>
+        this.weatherService.getWeather().pipe(
+          map(data => loadWeatherSuccessAction({ data })),
+          catchError(error =>
+            of(
+              loadWeatherFailureAction({
+                error: error.message || 'Erro ao carregar dados do clima',
+              })
+            )
+          )
+        )
+      )
     )
   );
-
-  ngrxOnInitEffects(): Action {
-    return loadWeather();
-  }
 }
