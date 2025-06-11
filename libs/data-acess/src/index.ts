@@ -1,1 +1,1 @@
-export * from './lib/chill-desktop-data-acess.component';
+export * from './lib';
