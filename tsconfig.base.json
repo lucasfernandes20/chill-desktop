@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@chill-desktop/data-acess": ["libs/data-acess/src/index.ts"],
       "@chill-desktop/shell/ui/layout": ["libs/shell/ui/layout/src/index.ts"],
       "@chill-desktop/shell/ui/main-content": ["libs/shell/ui/main-content/src/index.ts"],
       "@chill-desktop/shell/ui/navbar": ["libs/shell/ui/navbar/src/index.ts"]
