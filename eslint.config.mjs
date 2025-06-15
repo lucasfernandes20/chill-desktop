@@ -16,9 +16,30 @@ export default [
     ignores: ['**/dist', '**/node_modules', '**/tmp', '.cache/', '.git/', '.node_modules/'],
   },
 
+  // Configuração específica para arquivos de configuração
+  {
+    files: ['**/postcss.config.js', '**/tailwind.config.js'],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+    },
+  },
+
   // Configuração básica para TypeScript e JavaScript
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    ignores: ['**/postcss.config.js', '**/tailwind.config.js'],
     languageOptions: {
       parserOptions: {
         project: ['./tsconfig.base.json'],
