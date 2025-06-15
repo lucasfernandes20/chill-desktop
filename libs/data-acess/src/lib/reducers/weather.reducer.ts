@@ -1,32 +1,29 @@
 import { createReducer, on } from '@ngrx/store';
-import { type Weather } from '@chill-desktop/shared/models';
+import { StateStatus, type Weather } from '@chill-desktop/shared/models';
 import { loadWeatherAction, loadWeatherFailureAction, loadWeatherSuccessAction } from '../actions';
 
 export const WEATHER_FEATURE_KEY = 'weather';
 
-export interface WeatherState {
-  weather: Weather | null;
-  loading: boolean;
-  error: string;
+export interface WeatherState extends Partial<Weather> {
+  status: StateStatus;
+  error?: string;
 }
 
 export const initialState: WeatherState = {
-  weather: null,
-  loading: false,
-  error: '',
+  status: StateStatus.INITIAL,
 };
 
 export const weatherReducer = createReducer(
   initialState,
-  on(loadWeatherAction, state => ({ ...state, loading: true })),
+  on(loadWeatherAction, (state) => ({ ...state, status: StateStatus.LOADING })),
   on(loadWeatherSuccessAction, (state, { data }) => ({
     ...state,
-    weather: data,
-    loading: false,
+    ...data,
+    status: StateStatus.SUCCESS,
   })),
   on(loadWeatherFailureAction, (state, { error }) => ({
     ...state,
-    error,
-    loading: false,
+    status: StateStatus.ERROR,
+    error: error,
   }))
 );

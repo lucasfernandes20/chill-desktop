@@ -1,34 +1,23 @@
 <div class="border border-border rounded-2xl p-4 w-min fixed bottom-7 left-1/2 -translate-x-1/2">
-  <ul class="flex items-center justify-between gap-5">
-    <li class="navbar-item-app">
-      <button mat-fab>
-        <mat-icon>timer</mat-icon>
-      </button>
-      <span class="app-title">Pomodoro</span>
-    </li>
-    <li class="navbar-item-app">
-      <button mat-fab>
-        <mat-icon>list</mat-icon>
-      </button>
-      <span class="app-title">To-do List</span>
-    </li>
-    <li class="navbar-item-app">
-      <button mat-fab>
-        <mat-icon>note_alt</mat-icon>
-      </button>
-      <span class="app-title">Notes</span>
-    </li>
-    <li class="navbar-item-app">
-      <button mat-fab>
-        <mat-icon>music_note</mat-icon>
-      </button>
-      <span class="app-title">Music Player</span>
-    </li>
-    <li class="navbar-item-app">
-      <button mat-fab>
-        <mat-icon>settings</mat-icon>
-      </button>
-      <span class="app-title">Settings</span>
-    </li>
+  <ul class="flex items-center justify-between gap-3">
+    @if (apps$ | async; as apps) {
+      @if (apps.length > 0) {
+        @for (app of apps; track app?.id) {
+          @if (app?.isVisible) {
+            <li class="p-2 hover:scale-110 transition-all duration-300" data-testid="app-item">
+              <button mat-fab [matTooltip]="app?.name" [matTooltipPosition]="'above'">
+                <mat-icon>{{ app?.icon }}</mat-icon>
+              </button>
+            </li>
+          }
+        }
+      } @else {
+        <li class="p-2 hover:scale-110 transition-all duration-300" data-testid="add-app-button">
+          <button mat-fab [matTooltip]="'Add app'" [matTooltipPosition]="'above'">
+            <mat-icon>add</mat-icon>
+          </button>
+        </li>
+      }
+    }
   </ul>
 </div>

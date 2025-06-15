@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -7,7 +7,8 @@ import { Action } from '@ngrx/store';
 import { WeatherService } from '@chill-desktop/services';
 @Injectable()
 export class WeatherEffects implements OnInitEffects {
-  constructor(private readonly actions$: Actions, private weatherService: WeatherService) {}
+  private readonly actions$ = inject(Actions);
+  private readonly weatherService = inject(WeatherService);
 
   ngrxOnInitEffects(): Action {
     return loadWeatherAction();
@@ -18,8 +19,8 @@ export class WeatherEffects implements OnInitEffects {
       ofType(loadWeatherAction),
       mergeMap(() =>
         this.weatherService.getWeather().pipe(
-          map(data => loadWeatherSuccessAction({ data })),
-          catchError(error =>
+          map((data) => loadWeatherSuccessAction({ data })),
+          catchError((error) =>
             of(
               loadWeatherFailureAction({
                 error: error.message || 'Erro ao carregar dados do clima',
