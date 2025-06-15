@@ -1,4 +1,4 @@
-@use './assets/scss/material-vars.scss';
+@use "./assets/scss/material-vars.scss";
 
 @tailwind base;
 @tailwind components;
@@ -16,7 +16,7 @@
 html,
 body {
   height: 100%;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   line-height: 1.5;
 }
 
