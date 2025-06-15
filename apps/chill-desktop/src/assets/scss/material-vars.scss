@@ -1,6 +1,6 @@
-@use '@angular/material' as mat;
-@use 'sass:map';
-@use './themes/violet.scss' as p;
+@use "@angular/material" as mat;
+@use "sass:map";
+@use "./themes/violet.scss" as p;
 // Include the core styles for Angular Material. This should be done once per application.
 @include mat.core();
 

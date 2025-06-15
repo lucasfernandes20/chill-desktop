@@ -12,6 +12,6 @@ describe('AppComponent', () => {
   it(`should have as title 'chill-desktop'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('chill-desktop');
+    expect(app.title).toEqual('Chill Desktop');
   });
 });
