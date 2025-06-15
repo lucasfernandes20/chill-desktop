@@ -1,5 +1,5 @@
-const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
-const { join } = require('path');
+import { createGlobPatternsForDependencies } from '@nx/angular/tailwind';
+import { join } from 'path';
 
 module.exports = {
   content: [

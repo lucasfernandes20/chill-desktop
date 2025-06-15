@@ -10,8 +10,6 @@ export class WeatherService {
   constructor(private http: HttpClient) {}
 
   public getWeather(): Observable<Weather> {
-    return this.http.get<Weather>(
-      'https://api.openweathermap.org/data/2.5/weather?q=Sao Paulo&appid=1234567890'
-    );
+    return this.http.get<Weather>('https://api.openweathermap.org/data/2.5/weather?q=Sao Paulo&appid=1234567890');
   }
 }
