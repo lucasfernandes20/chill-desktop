@@ -20,6 +20,7 @@
       "@chill-desktop/shared/models": ["libs/shared/models/src/index.ts"],
       "@chill-desktop/shell/ui/layout": ["libs/shell/ui/layout/src/index.ts"],
       "@chill-desktop/shell/ui/main-content": ["libs/shell/ui/main-content/src/index.ts"],
+      "@chill-desktop/shell/ui/menu-bar": ["libs/shell/ui/menu-bar/src/index.ts"],
       "@chill-desktop/shell/ui/navbar": ["libs/shell/ui/navbar/src/index.ts"]
     }
   },

@@ -1,0 +1,9 @@
+.mat-mdc-button {
+  --mdc-text-button-container-height: 24px;
+  --mdc-text-button-label-text-color: hsl(var(--foreground));
+  --mdc-text-button-label-text-size: 14px;
+
+  .mat-mdc-button-touch-target {
+    height: 24px !important;
+  }
+}
