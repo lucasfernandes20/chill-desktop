@@ -1,13 +1,25 @@
 <div class="bg-background/60 backdrop-blur-sm text-foreground w-svw fixed top-0 left-0 right-0 z-50">
   <div class="py-1 px-5 flex items-center justify-between mx-auto">
     <img src="/logo.svg" alt="logo" class="w-6 h-6" />
-
     <div class="flex items-center gap-3">
-      <button mat-button class="flex items-center gap-1" aria-label="weather">
-        <mat-icon class="!text-sm !mr-0">cloud_queue</mat-icon>
-        <span class="cdk-visually-hidden">Informações do clima</span>
-        <span>12°C</span>
-      </button>
+      @if ($weather | async; as weather) {
+        @switch (weather.status) {
+          @case (stateStatus.LOADING) {
+            <mat-icon class="animate-spin text-foreground">sync</mat-icon>
+          }
+          @case (stateStatus.ERROR) {
+            <mat-icon>error</mat-icon>
+            <span class="text-sm font-thin">{{ weather.error }}</span>
+          }
+          @default {
+            <button mat-button class="flex items-center gap-1" aria-label="weather">
+              <mat-icon class="!text-sm !mr-0">{{ weather.data?.weatherCondition?.icon }}</mat-icon>
+              <span class="cdk-visually-hidden">Informações do clima</span>
+              <span>{{ weather.data?.temperature?.degrees?.toFixed(0) }} {{ weather.data?.temperature?.unit }}</span>
+            </button>
+          }
+        }
+      }
 
       <button mat-button class="flex items-center gap-1" aria-label="currency">
         <mat-icon class="!text-sm !mr-0">currency_exchange</mat-icon>

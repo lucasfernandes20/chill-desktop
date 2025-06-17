@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { Store } from '@ngrx/store';
+import { selectWeatherState } from '@chill-desktop/data-acess';
+import { StateStatus } from '@chill-desktop/shared/models';
 
 @Component({
   selector: 'chill-menu-bar',
@@ -10,4 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './menu-bar.component.html',
   styleUrl: './menu-bar.component.scss',
 })
-export class MenuBarComponent {}
+export class MenuBarComponent {
+  private readonly store = inject(Store);
+  public readonly stateStatus = StateStatus;
+  $weather = this.store.select(selectWeatherState);
+}

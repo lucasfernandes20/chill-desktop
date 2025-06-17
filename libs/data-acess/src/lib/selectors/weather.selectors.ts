@@ -8,9 +8,7 @@ export const selectWeatherState = createSelector(
   (state: Record<string, unknown>) => state['weather'] as WeatherState
 );
 
-export const selectTemperature = createSelector(selectWeatherState, (state: WeatherState) => state?.temperature);
-
 export const selectWeatherCondition = createSelector(
   selectWeatherState,
-  (state: WeatherState) => state?.weatherCondition
+  (state: WeatherState) => state.data?.weatherCondition
 );

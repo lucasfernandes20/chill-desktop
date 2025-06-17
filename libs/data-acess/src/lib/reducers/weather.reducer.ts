@@ -4,7 +4,8 @@ import { loadWeatherAction, loadWeatherFailureAction, loadWeatherSuccessAction }
 
 export const WEATHER_FEATURE_KEY = 'weather';
 
-export interface WeatherState extends Partial<Weather> {
+export interface WeatherState {
+  data?: Weather;
   status: StateStatus;
   error?: string;
 }
@@ -18,7 +19,7 @@ export const weatherReducer = createReducer(
   on(loadWeatherAction, (state) => ({ ...state, status: StateStatus.LOADING })),
   on(loadWeatherSuccessAction, (state, { data }) => ({
     ...state,
-    ...data,
+    data,
     status: StateStatus.SUCCESS,
   })),
   on(loadWeatherFailureAction, (state, { error }) => ({

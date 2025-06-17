@@ -10,7 +10,7 @@ export interface Weather {
 }
 
 export interface WeatherCondition {
-  iconBaseUri: string;
+  icon: string;
   description: WeatherDescription;
   type: WeatherConditionTypeEnum;
 }

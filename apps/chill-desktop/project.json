@@ -42,6 +42,12 @@
               "maximumError": "8kb"
             }
           ],
+          "fileReplacements": [
+            {
+              "replace": "apps/chill-desktop/src/environments/environment.development.ts",
+              "with": "apps/chill-desktop/src/environments/environment.ts"
+            }
+          ],
           "outputHashing": "all"
         },
         "development": {

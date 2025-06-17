@@ -18,12 +18,12 @@ export class WeatherEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(loadWeatherAction),
       mergeMap(() =>
-        this.weatherService.getWeather().pipe(
+        this.weatherService.getWeather({ latitude: -20.9649664, longitude: -49.1716608 }).pipe(
           map((data) => loadWeatherSuccessAction({ data })),
-          catchError((error) =>
+          catchError(() =>
             of(
               loadWeatherFailureAction({
-                error: error.message || 'Erro ao carregar dados do clima',
+                error: 'Erro ao carregar dados do clima',
               })
             )
           )
