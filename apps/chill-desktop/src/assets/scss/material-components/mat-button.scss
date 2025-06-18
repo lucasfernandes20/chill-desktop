@@ -1,8 +1,21 @@
-.mat-mdc-button {
-  --mdc-text-button-container-height: 24px;
-  --mdc-text-button-label-text-size: 14px;
+@use "@angular/material" as mat;
 
-  .mat-mdc-button-touch-target {
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:root {
+  .mat-mdc-button .mat-mdc-button-touch-target {
     height: 24px !important;
   }
+  @include mat.button-overrides(
+    (
+      filled-container-height: 24px,
+      outlined-container-height: 24px,
+      text-container-height: 24px,
+      protected-container-height: 24px,
+
+      filled-label-text-size: 14px,
+      outlined-label-text-size: 14px,
+      protected-label-text-size: 14px,
+      text-label-text-size: 14px,
+    )
+  );
 }
