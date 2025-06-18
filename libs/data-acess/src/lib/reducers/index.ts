@@ -2,6 +2,7 @@ import { isDevMode } from '@angular/core';
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { weatherReducer, type WeatherState } from './weather.reducer';
 import { appsReducer, type AppsState } from './apps.reducer';
+export { type AppsState, type WeatherState };
 
 export const chillDesktopFeatureKey = 'chillDesktop';
 

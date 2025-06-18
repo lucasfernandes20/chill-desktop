@@ -1728,7 +1728,6 @@ export class WeatherService {
     //     `https://api.openweathermap.org/data/3.0/onecall?appid=${apiKey}&units=metric&lat=${latitude}&lon=${longitude}&lang=pt`
     //   )
     //   .pipe(map(weatherRequestToWeather));
-    console.log(latitude, longitude);
     return of(MOCK_WEATHER).pipe(map(weatherRequestToWeather), delay(2000));
   }
 }

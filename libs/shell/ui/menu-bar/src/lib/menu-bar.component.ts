@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { selectWeatherState } from '@chill-desktop/data-acess';
 import { StateStatus } from '@chill-desktop/shared/models';
+import { interval, map, Observable, shareReplay, startWith } from 'rxjs';
 
 @Component({
   selector: 'chill-menu-bar',
@@ -17,4 +18,10 @@ export class MenuBarComponent {
   private readonly store = inject(Store);
   public readonly stateStatus = StateStatus;
   $weather = this.store.select(selectWeatherState);
+
+  $currentDateTime: Observable<Date> = interval(60000).pipe(
+    startWith(0),
+    map(() => new Date()),
+    shareReplay(1)
+  );
 }
