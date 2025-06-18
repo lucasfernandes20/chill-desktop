@@ -4,6 +4,8 @@ import { StateStatus, TemperatureUnitEnum, WeatherConditionTypeEnum } from '@chi
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { selectWeatherState, type WeatherState } from '@chill-desktop/data-acess';
 import { DatePipe } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+import { of } from 'rxjs';
 
 const mockWeatherStateLoading: WeatherState = {
   status: StateStatus.LOADING,
@@ -52,6 +54,7 @@ describe('MenuBarComponent', () => {
       imports: [MenuBarComponent],
       providers: [
         DatePipe,
+        { provide: LOCALE_ID, useValue: 'pt-BR' },
         provideMockStore({
           selectors: [{ selector: selectWeatherState, value: mockWeatherStateLoading }],
         }),
@@ -110,12 +113,79 @@ describe('MenuBarComponent', () => {
   });
 
   describe('date time', () => {
-    it('should render current date time', () => {
-      const datePipe = new DatePipe('en-US');
+    it('should render date time with Brazilian Portuguese locale format with datepipe', () => {
+      const mockDate = new Date('2024-03-20T09:15:00');
+
+      component.$currentDateTime = of(mockDate);
+
+      fixture.detectChanges();
+
+      const datePipe = new DatePipe('pt-BR');
+      const expectedDate = datePipe.transform(mockDate, 'EEE dd MMM HH:mm a');
       const dateTime = fixture.nativeElement.querySelector('p[data-testid="date-time"]');
-      const date = datePipe.transform(new Date(), 'EEE dd MMM HH:mm a');
+
       expect(dateTime).toBeTruthy();
-      expect(dateTime.textContent).toContain(date);
+      expect(dateTime.textContent.trim()).toBe(expectedDate);
+    });
+
+    it('should update date time when observable emits new value', () => {
+      const datePipe = new DatePipe('pt-BR');
+
+      const firstDate = new Date('2024-01-15T10:00:00');
+      const secondDate = new Date('2024-01-16T15:30:00');
+
+      const expectedFirstDate = datePipe.transform(firstDate, 'EEE dd MMM HH:mm a');
+      const expectedSecondDate = datePipe.transform(secondDate, 'EEE dd MMM HH:mm a');
+
+      component.$currentDateTime = of(firstDate);
+      fixture.detectChanges();
+
+      let dateTime = fixture.nativeElement.querySelector('p[data-testid="date-time"]');
+      expect(dateTime.textContent.trim()).toBe(expectedFirstDate);
+
+      component.$currentDateTime = of(secondDate);
+      fixture.detectChanges();
+
+      dateTime = fixture.nativeElement.querySelector('p[data-testid="date-time"]');
+      expect(dateTime.textContent.trim()).toBe(expectedSecondDate);
+    });
+
+    it('should render error message when observable emits null', () => {
+      component.$currentDateTime = of(null as unknown as Date);
+      fixture.detectChanges();
+
+      const dateTimeError = fixture.nativeElement.querySelector('p[data-testid="date-time-error"]');
+      const dateTime = fixture.nativeElement.querySelector('p[data-testid="date-time"]');
+      expect(dateTimeError).toBeTruthy();
+      expect(dateTime).toBeNull();
+      expect(dateTimeError.textContent.trim()).toBe('Horário não disponível');
+    });
+
+    it('should render error message when observable emits undefined', () => {
+      component.$currentDateTime = of(undefined as unknown as Date);
+      fixture.detectChanges();
+
+      const dateTimeError = fixture.nativeElement.querySelector('p[data-testid="date-time-error"]');
+      const dateTime = fixture.nativeElement.querySelector('p[data-testid="date-time"]');
+      expect(dateTimeError).toBeTruthy();
+      expect(dateTime).toBeNull();
+      expect(dateTimeError.textContent.trim()).toBe('Horário não disponível');
+    });
+
+    it('isValidDate should return true when value is a Date and false when value is not a Date', () => {
+      expect(component.isValidDate(new Date())).toBe(true);
+      expect(component.isValidDate('wrong' as unknown as Date)).toBe(false);
+    });
+
+    it('should render error message when observable emits wrong type', () => {
+      component.$currentDateTime = of('wrong' as unknown as Date);
+      fixture.detectChanges();
+
+      const dateTimeError = fixture.nativeElement.querySelector('p[data-testid="date-time-error"]');
+      const dateTime = fixture.nativeElement.querySelector('p[data-testid="date-time"]');
+      expect(dateTimeError).toBeTruthy();
+      expect(dateTime).toBeNull();
+      expect(dateTimeError.textContent.trim()).toBe('Horário não disponível');
     });
   });
 

@@ -24,4 +24,8 @@ export class MenuBarComponent {
     map(() => new Date()),
     shareReplay(1)
   );
+
+  isValidDate(value: unknown): value is Date {
+    return value instanceof Date;
+  }
 }

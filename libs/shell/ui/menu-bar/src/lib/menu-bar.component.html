@@ -36,12 +36,23 @@
           currency_exchange
         </mat-icon>
         <span class="cdk-visually-hidden">Informações de câmbio</span>
-        <span>1 USD = 5.25 BRL</span>
+        <span data-testid="currency-value">1 USD = 5.25 BRL</span>
       </button>
 
-      <p class="text-sm font-thin" aria-label="data e hora" data-testid="date-time">
-        {{ $currentDateTime | async | date: 'EEE dd MMM HH:mm a' }}
-      </p>
+      @if ($currentDateTime | async; as dateTime) {
+        @if (isValidDate(dateTime)) {
+          <p class="text-sm font-thin" aria-label="data e hora" data-testid="date-time">
+            {{ dateTime | date: 'EEE dd MMM HH:mm a' }}
+          </p>
+        } @else {
+          <ng-container *ngTemplateOutlet="dateTimeError"></ng-container>
+        }
+      } @else {
+        <ng-container *ngTemplateOutlet="dateTimeError"></ng-container>
+      }
+      <ng-template #dateTimeError>
+        <p class="text-sm font-thin" aria-label="data e hora" data-testid="date-time-error">Horário não disponível</p>
+      </ng-template>
     </div>
   </div>
 </div>
