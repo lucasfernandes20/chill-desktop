@@ -6,11 +6,13 @@ import { Store } from '@ngrx/store';
 import { selectWeatherState } from '@chill-desktop/data-acess';
 import { StateStatus } from '@chill-desktop/shared/models';
 import { interval, map, Observable, shareReplay, startWith } from 'rxjs';
+import { WeatherMenuComponent } from '@chill-desktop/shared/ui/weather-menu';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'chill-menu-bar',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, WeatherMenuComponent, MatMenuModule],
   templateUrl: './menu-bar.component.html',
   styleUrl: './menu-bar.component.scss',
 })

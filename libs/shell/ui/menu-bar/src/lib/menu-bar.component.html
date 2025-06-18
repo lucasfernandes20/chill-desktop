@@ -4,7 +4,7 @@
     <div class="flex items-center gap-3">
       @if ($weather | async; as weather) {
         @switch (weather.status) {
-          @case (stateStatus.LOADING) {
+          @case (stateStatus.LOADING || stateStatus.INITIAL) {
             <mat-icon
               class="animate-spin text-foreground"
               aria-label="Carregando"
@@ -17,8 +17,14 @@
             <mat-icon data-testid="error-icon" aria-label="Erro" aria-hidden="true">error</mat-icon>
             <span class="text-sm font-thin" data-testid="error-message">{{ weather.error }}</span>
           }
-          @default {
-            <button mat-button class="flex items-center gap-1" aria-label="weather" data-testid="weather-button">
+          @case (stateStatus.SUCCESS) {
+            <button
+              mat-button
+              class="flex items-center gap-1"
+              aria-label="weather informations"
+              data-testid="weather-button"
+              [matMenuTriggerFor]="weatherMenu.matMenu"
+            >
               <mat-icon class="!text-sm !mr-0" data-testid="weather-icon" aria-label="Clima" aria-hidden="true">{{
                 weather.data?.weatherCondition?.icon
               }}</mat-icon>
@@ -27,6 +33,7 @@
                 >{{ weather.data?.temperature?.degrees?.toFixed(0) }} {{ weather.data?.temperature?.unit }}</span
               >
             </button>
+            <chill-weather-menu #weatherMenu [weather]="weather.data"></chill-weather-menu>
           }
         }
       }
