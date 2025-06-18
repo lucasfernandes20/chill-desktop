@@ -18,7 +18,7 @@
             <span class="text-sm font-thin" data-testid="error-message">{{ weather.error }}</span>
           }
           @default {
-            <button mat-button class="flex items-center gap-1" aria-label="weather">
+            <button mat-button class="flex items-center gap-1" aria-label="weather" data-testid="weather-button">
               <mat-icon class="!text-sm !mr-0" data-testid="weather-icon" aria-label="Clima" aria-hidden="true">{{
                 weather.data?.weatherCondition?.icon
               }}</mat-icon>
@@ -31,7 +31,7 @@
         }
       }
 
-      <button mat-button class="flex items-center gap-1" aria-label="currency">
+      <button mat-button class="flex items-center gap-1" aria-label="currency" data-testid="currency-button">
         <mat-icon class="!text-sm !mr-0" data-testid="currency-icon" aria-label="Câmbio" aria-hidden="true">
           currency_exchange
         </mat-icon>

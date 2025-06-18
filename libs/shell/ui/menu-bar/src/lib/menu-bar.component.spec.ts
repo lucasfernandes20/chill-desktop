@@ -110,6 +110,14 @@ describe('MenuBarComponent', () => {
       expect(errorMessage).toBeTruthy();
       expect(errorMessage.textContent).toBe('Error loading weather');
     });
+
+    it('should open a mat-menu when weather button is clicked', () => {
+      const weatherButton = fixture.nativeElement.querySelector('button[data-testid="weather-button"]');
+      weatherButton.click();
+      fixture.detectChanges();
+      const matMenu = fixture.nativeElement.querySelector('mat-menu[data-testid="weather-menu"]');
+      expect(matMenu).toBeTruthy();
+    });
   });
 
   describe('date time', () => {
@@ -199,6 +207,14 @@ describe('MenuBarComponent', () => {
       const currencyValue = fixture.nativeElement.querySelector('span[data-testid="currency-value"]');
       expect(currencyValue).toBeTruthy();
       expect(currencyValue.textContent).toBe('1 USD = 5.25 BRL');
+    });
+
+    it('should open a mat-menu when currency button is clicked', () => {
+      const currencyButton = fixture.nativeElement.querySelector('button[data-testid="currency-button"]');
+      currencyButton.click();
+      fixture.detectChanges();
+      const matMenu = fixture.nativeElement.querySelector('mat-menu[data-testid="currency-menu"]');
+      expect(matMenu).toBeTruthy();
     });
   });
 });
