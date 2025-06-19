@@ -22,7 +22,7 @@ export class WeatherService {
     const apiKey = this.appEnvironment.openWeatherApiKey;
     return this.http
       .get<WeatherApiResponse>(
-        `https://api.openweathermap.org/data/3.0/onecall?appid=${apiKey}&units=metric&lat=${latitude}&lon=${longitude}&lang=pt`
+        `${this.appEnvironment.openWeatherApiUrl}/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric&lang=pt`
       )
       .pipe(map(weatherRequestToWeather));
     // return of(MOCK_WEATHER).pipe(map(weatherRequestToWeather), delay(2000));

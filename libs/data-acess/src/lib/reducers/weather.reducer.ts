@@ -10,7 +10,7 @@ export interface WeatherState {
   error?: string;
 }
 
-export const initialState: WeatherState = {
+const initialState: WeatherState = {
   status: StateStatus.INITIAL,
 };
 
