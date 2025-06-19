@@ -195,10 +195,12 @@ describe('WeatherMenuComponent', () => {
     expect(menu.attributes['aria-label']).toBe('Informações meteorológicas');
 
     const weatherIcon = hostFixture.debugElement.query(By.css('.weather-icon'));
+    expect(weatherIcon).toBeTruthy();
     expect(weatherIcon.attributes['aria-label']).toBe(mockWeatherData.weatherCondition.description.text);
     expect(weatherIcon.attributes['role']).toBe('img');
 
     const hiddenTitle = hostFixture.debugElement.query(By.css('.cdk-visually-hidden'));
+    expect(hiddenTitle).toBeTruthy();
     expect(hiddenTitle.nativeElement.textContent.trim()).toBe('Detalhes meteorológicos');
   });
 });
