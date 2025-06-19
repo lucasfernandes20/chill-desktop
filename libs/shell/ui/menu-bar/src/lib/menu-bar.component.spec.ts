@@ -112,6 +112,10 @@ describe('MenuBarComponent', () => {
     });
 
     it('should open a mat-menu when weather button is clicked', () => {
+      store.overrideSelector(selectWeatherState, mockWeatherStateSuccess);
+      store.refreshState();
+      fixture.detectChanges();
+
       const weatherButton = fixture.nativeElement.querySelector('button[data-testid="weather-button"]');
       weatherButton.click();
       fixture.detectChanges();
