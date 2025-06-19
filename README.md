@@ -1,81 +1,187 @@
-# ChillDesktop
+# 🖥️ Chill Desktop
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+[![Angular](https://img.shields.io/badge/Angular-19-red?logo=angular)](https://angular.io)
+[![NX](https://img.shields.io/badge/NX-21-blue?logo=nx)](https://nx.dev)
+[![Material Design](https://img.shields.io/badge/Material_Design-v3-orange?logo=material-design)](https://material.angular.io)
+[![NgRX](https://img.shields.io/badge/NgRX-19-purple?logo=ngrx)](https://ngrx.io)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript)](https://www.typescriptlang.org)
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## 🌟 Sobre o Projeto
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+Chill Desktop é uma aplicação web moderna que **simula a experiência de um desktop de computador** com aplicativos voltados para produtividade. Desenvolvida com as tecnologias do ecossistema Angular, oferece uma interface com um UI/UX aprimorado e funcional com informações úteis do dia a dia. **Também conta com acessibilidade.**
 
-## Finish your CI setup
+### 👽 Funcionalidades
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/hDki60ik7p)
+- **📱 Menu de Aplicativos** - Interface desktop-like com menu inferior
+- **🌤️ Informações Meteorológicas** - Clima atual com detalhes completos
+- **💱 Cotações de Moedas** - Câmbio atualizado de diversas moedas
+- **🍅 Pomodoro Timer** - Técnica de produtividade com temporizador
+- **✅ Todo List** - Gerenciamento de tarefas pessoais
+- **🎵 Music Player** - Reprodutor de música integrado
+- **📝 Notes** - Aplicativo de anotações rápidas
+- **📋 Kanban Board** - Quadro de gerenciamento de projetos
+- **⚙️ Configurações** - Gerenciamento de configurações da aplicação (temas por exemplo)
 
-## Run tasks
+## 🛠️ Stack Tecnológica
 
-To run the dev server for your app, use:
+### Frontend Framework
 
-```sh
+- **Angular 19** - Framework principal com standalone components
+- **TypeScript 5.7** - Linguagem de programação tipada
+
+### Arquitetura e Ferramentas
+
+- **NX Workspace** - Monorepo com ferramentas avançadas de desenvolvimento
+- **NgRX 19** - Gerenciamento de estado reativo
+- **RxJS 7.8** - Programação reativa com observables
+
+### UI/UX
+
+- **Angular Material 19** - Componentes Material Design v3
+- **SCSS** - Pré-processador CSS para estilização avançada
+- **Tailwind CSS** - Framework CSS utilitário
+
+### Testes e Qualidade
+
+- **Jest** - Framework de testes unitários
+- **Playwright** - Testes end-to-end
+- **ESLint** - Linter para qualidade de código
+- **Prettier** - Formatação automática de código
+
+## 🏗️ Arquitetura do Projeto
+
+O projeto segue uma arquitetura modular e escalável baseada em NX:
+
+```
+chill-desktop/
+├── apps/
+│   ├── chill-desktop/           # Aplicação principal
+│   └── chill-desktop-e2e/       # Testes E2E
+├── libs/
+│   ├── data-access/             # Camada de dados store GLOBAL (NgRX)
+│   │   ├── actions/             # Actions do NgRX
+│   │   ├── effects/             # Effects do NgRX
+│   │   ├── reducers/            # Reducers do NgRX
+│   │   └── selectors/           # Selectors do NgRX
+│   ├── services/                # Serviços da aplicação
+│   ├── shared/
+│   │   ├── models/              # Interfaces, tipos e de/paras
+│   │   ├── app-environment/     # Configurações de ambiente
+│   │   └── ui/                  # Componentes compartilhados
+│   └── shell/
+│       └── ui/                  # Componentes de layout
+│           ├── layout/          # Layout principal
+│           ├── navbar/          # Barra de navegação
+│           ├── menu-bar/        # Menu inferior
+│           └── main-content/    # Conteúdo principal
+```
+
+### 🎯 Princípios Arquiteturais
+
+- **Separation of Concerns** - Cada biblioteca tem responsabilidade bem definida
+- **Standalone Components** - Componentes independentes do Angular 19
+- **Reactive Programming** - Uso extensivo de RxJS e NgRX
+- **Type Safety** - TypeScript rigoroso em todo o projeto
+- **Clean Code** - Código limpo e bem documentado
+
+## 🚀 Começando
+
+### Pré-requisitos
+
+```bash
+Node.js >= 18.16.9
+npm >= 9.0.0
+```
+
+### Instalação
+
+1. **Clone o repositório**
+
+```bash
+git clone <repository-url>
+cd chill-desktop
+```
+
+2. **Instale as dependências**
+
+```bash
+npm install
+```
+
+3. **Configure as variáveis de ambiente**
+
+```bash
+# Copie o arquivo de exemplo
+cp apps/chill-desktop/src/environments/environment.example.ts apps/chill-desktop/src/environments/environment.ts
+
+# Configure suas chaves de API (OpenWeather, etc.)
+```
+
+4. **Execute a aplicação**
+
+```bash
+npm run dev
+# ou
 npx nx serve chill-desktop
 ```
 
-To create a production bundle:
+A aplicação estará disponível em `http://localhost:4200`
 
-```sh
-npx nx build chill-desktop
+## 📋 Scripts Disponíveis
+
+```bash
+# Desenvolvimento
+npm run dev                    # Inicia o servidor de desenvolvimento
+npm run build                 # Build de produção
+npm run build:dev             # Build de desenvolvimento
+
+# Testes
+npm run test                   # Executa todos os testes
+npm run test:watch            # Testes em modo watch
+npm run test:file:watch       # Testa arquivo específico em watch
+
+# Qualidade de Código
+npm run lint                   # Executa o linter
+npm run format                # Formata o código
+npm run format:check          # Verifica a formatação
 ```
 
-To see all available targets to run for a project, run:
+## 🧪 Testes
 
-```sh
-npx nx show project chill-desktop
+### Testes Unitários
+
+```bash
+# Executa todos os testes
+npm run test
+
+# Testa um projeto específico
+npx nx test <project-name>
+
+# Testes em modo watch
+npm run test:watch --project-PROJECT-NAME
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### Testes E2E (Ainda não implementados)
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 🌐 Recursos Externos
 
-## Add new projects
+### APIs Utilizadas
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+- **OpenWeather API** - Dados meteorológicos em tempo real
+- **Exchange Rates API** - Cotações de moedas atualizadas
 
-Use the plugin's generator to create new projects.
+### Configuração de APIs
 
-To generate a new application, use:
+Configure suas chaves de API no arquivo `environment.ts`:
 
-```sh
-npx nx g @nx/angular:app demo
+```typescript
+export const environment = {
+  production: false,
+  openWeatherApiKey: 'sua-chave-openweather',
+  exchangeRatesApiKey: 'sua-chave-exchange-rates',
+};
 ```
 
-To generate a new library, use:
+---
 
-```sh
-npx nx g @nx/angular:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+**Tamo junto para você que leu até aqui! 🫵❤️**
