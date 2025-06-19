@@ -48,49 +48,63 @@
         <section
           class="detail-item flex items-start gap-3 p-3 rounded-xl bg-card/30 border border-border transition-all duration-200 hover:bg-card/50 hover:-translate-y-0.5"
         >
-          <mat-icon class="detail-icon text-xl mt-0.5" [style.color]="'hsl(var(--chart-2))'" aria-hidden="true">
-            visibility
-          </mat-icon>
+          <mat-icon class="detail-icon text-xl mt-0.5 text-chart-2" aria-hidden="true"> visibility </mat-icon>
           <div class="detail-content flex flex-col gap-0.5 flex-1">
             <span class="detail-label text-sm text-muted-foreground font-medium">UV Index</span>
-            <span class="detail-value text-xl font-semibold text-foreground leading-tight">{{ weather.uvIndex }}</span>
-            <span class="detail-description text-xs text-muted-foreground/80 italic">{{
-              getUvDescription(weather.uvIndex)
-            }}</span>
+            <span
+              class="text-xl font-semibold text-foreground leading-tight"
+              data-testid="uv-index-value"
+              aria-label="UV Index"
+              >{{ weather.uvIndex }}</span
+            >
+            <span
+              class="text-xs text-muted-foreground/80 italic"
+              data-testid="uv-index-description"
+              aria-label="Descrição do UV Index"
+              >{{ getUvDescription(weather.uvIndex) }}</span
+            >
           </div>
         </section>
 
         <section
           class="detail-item flex items-start gap-3 p-3 rounded-xl bg-card/30 border border-border transition-all duration-200 hover:bg-card/50 hover:-translate-y-0.5"
         >
-          <mat-icon class="detail-icon text-xl mt-0.5" [style.color]="'hsl(var(--chart-1))'" aria-hidden="true">
-            water_drop
-          </mat-icon>
+          <mat-icon class="detail-icon text-xl mt-0.5 text-chart-1" aria-hidden="true"> water_drop </mat-icon>
           <div class="detail-content flex flex-col gap-0.5 flex-1">
             <span class="detail-label text-sm text-muted-foreground font-medium">Umidade</span>
-            <span class="detail-value text-xl font-semibold text-foreground leading-tight"
+            <span
+              class="text-xl font-semibold text-foreground leading-tight"
+              data-testid="humidity-value"
+              aria-label="Umidade"
               >{{ weather.relativeHumidity }}%</span
             >
-            <span class="detail-description text-xs text-muted-foreground/80 italic">{{
-              getHumidityDescription(weather.relativeHumidity)
-            }}</span>
+            <span
+              class="text-xs text-muted-foreground/80 italic"
+              data-testid="humidity-description"
+              aria-label="Descrição da umidade"
+              >{{ getHumidityDescription(weather.relativeHumidity) }}</span
+            >
           </div>
         </section>
 
         <section
           class="detail-item flex items-start gap-3 p-3 rounded-xl bg-card/30 border border-border transition-all duration-200 hover:bg-card/50 hover:-translate-y-0.5"
         >
-          <mat-icon class="detail-icon text-xl mt-0.5" [style.color]="'hsl(var(--chart-4))'" aria-hidden="true">
-            cloud
-          </mat-icon>
+          <mat-icon class="detail-icon text-xl mt-0.5 text-chart-4" aria-hidden="true"> cloud </mat-icon>
           <div class="detail-content flex flex-col gap-0.5 flex-1">
             <span class="detail-label text-sm text-muted-foreground font-medium">Cobertura de Nuvens</span>
-            <span class="detail-value text-xl font-semibold text-foreground leading-tight"
+            <span
+              class="text-xl font-semibold text-foreground leading-tight"
+              data-testid="cloud-cover-value"
+              aria-label="Cobertura de nuvens"
               >{{ (weather.cloudCover * 100).toFixed(0) }}%</span
             >
-            <span class="detail-description text-xs text-muted-foreground/80 italic">{{
-              getCloudDescription(weather.cloudCover)
-            }}</span>
+            <span
+              class="text-xs text-muted-foreground/80 italic"
+              data-testid="cloud-cover-description"
+              aria-label="Descrição da cobertura de nuvens"
+              >{{ getCloudDescription(weather.cloudCover) }}</span
+            >
           </div>
         </section>
       </main>
@@ -106,7 +120,12 @@
       </footer>
     </div>
   } @else {
-    <div class="bg-gradient-to-br from-primary/10 to-card/10" role="alert" aria-live="polite">
+    <div
+      class="bg-gradient-to-br from-primary/10 to-card/10"
+      role="alert"
+      aria-live="polite"
+      data-testid="no-weather-data"
+    >
       <div class="py-10 px-5 text-center flex flex-col gap-2 text-muted-foreground">
         <mat-icon class="mx-auto text-muted-foreground/50" aria-label="Sem dados meteorológicos" role="img">
           cloud_off
