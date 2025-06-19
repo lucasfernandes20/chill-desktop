@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
-import { selectWeatherState } from '@chill-desktop/data-acess';
+import { selectWeatherState, selectCurrencyState } from '@chill-desktop/data-acess';
 import { StateStatus } from '@chill-desktop/shared/models';
 import { interval, map, Observable, shareReplay, startWith } from 'rxjs';
 import { WeatherMenuComponent } from '@chill-desktop/shared/ui/weather-menu';
@@ -20,6 +20,7 @@ export class MenuBarComponent {
   private readonly store = inject(Store);
   public readonly stateStatus = StateStatus;
   $weather = this.store.select(selectWeatherState);
+  $currency = this.store.select(selectCurrencyState);
 
   $currentDateTime: Observable<Date> = interval(60000).pipe(
     startWith(0),

@@ -47,9 +47,20 @@ describe('WeatherMenuComponent', () => {
       type: WeatherConditionTypeEnum.CLEAR,
     },
     isDaytime: true,
-    uvIndex: 8,
     cloudCover: 0.2,
     relativeHumidity: 65,
+    coordinates: {
+      latitude: -20.965,
+      longitude: -49.1717,
+    },
+    wind: {
+      speed: 5.2,
+      direction: 180,
+    },
+    visibility: 10000,
+    pressure: 1018,
+    precipitation: 0,
+    locationName: 'São Paulo',
   };
 
   beforeEach(async () => {
@@ -113,6 +124,17 @@ describe('WeatherMenuComponent', () => {
     expect(description.nativeElement.textContent.trim()).toBe('Sunny');
   });
 
+  it('should display location name', () => {
+    hostComponent.weather = mockWeatherData;
+    hostFixture.detectChanges();
+
+    hostComponent.menuTrigger.openMenu();
+    hostFixture.detectChanges();
+
+    const locationElement = hostFixture.debugElement.query(By.css('.location-info span'));
+    expect(locationElement.nativeElement.textContent.trim()).toBe('São Paulo');
+  });
+
   it('should display correct day/night indicators', () => {
     hostComponent.weather = mockWeatherData;
     hostFixture.detectChanges();
@@ -143,10 +165,10 @@ describe('WeatherMenuComponent', () => {
     hostComponent.menuTrigger.openMenu();
     hostFixture.detectChanges();
 
-    const uvValue = hostFixture.debugElement.query(By.css('[data-testid="uv-index-value"]'));
-    const uvDescription = hostFixture.debugElement.query(By.css('[data-testid="uv-index-description"]'));
-    expect(uvValue.nativeElement.textContent.trim()).toBe('8');
-    expect(uvDescription.nativeElement.textContent.trim()).toBe('Muito Alto');
+    const windValue = hostFixture.debugElement.query(By.css('[data-testid="wind-speed-value"]'));
+    const windDescription = hostFixture.debugElement.query(By.css('[data-testid="wind-description"]'));
+    expect(windValue.nativeElement.textContent.trim()).toBe('5.2 m/s');
+    expect(windDescription.nativeElement.textContent.trim()).toBe('Brisa Suave • Sul');
 
     const humidityValue = hostFixture.debugElement.query(By.css('[data-testid="humidity-value"]'));
     const humidityDescription = hostFixture.debugElement.query(By.css('[data-testid="humidity-description"]'));
@@ -159,12 +181,29 @@ describe('WeatherMenuComponent', () => {
     expect(cloudDescription.nativeElement.textContent.trim()).toBe('Poucas Nuvens');
   });
 
-  it('should return correct UV index descriptions', () => {
-    expect(component.getUvDescription(1)).toBe('Baixo');
-    expect(component.getUvDescription(4)).toBe('Moderado');
-    expect(component.getUvDescription(7)).toBe('Alto');
-    expect(component.getUvDescription(9)).toBe('Muito Alto');
-    expect(component.getUvDescription(12)).toBe('Extremo');
+  it('should return correct wind speed descriptions', () => {
+    expect(component.getWindDescription(0.5)).toBe('Calmo');
+    expect(component.getWindDescription(2)).toBe('Brisa Leve');
+    expect(component.getWindDescription(4)).toBe('Brisa Suave');
+    expect(component.getWindDescription(7)).toBe('Brisa Moderada');
+    expect(component.getWindDescription(10)).toBe('Brisa Fresca');
+    expect(component.getWindDescription(13)).toBe('Brisa Forte');
+    expect(component.getWindDescription(16)).toBe('Vento Moderado');
+    expect(component.getWindDescription(20)).toBe('Vento Fresco');
+    expect(component.getWindDescription(23)).toBe('Vento Forte');
+    expect(component.getWindDescription(25)).toBe('Vento Muito Forte');
+  });
+
+  it('should return correct wind directions', () => {
+    expect(component.getWindDirection(0)).toBe('Norte');
+    expect(component.getWindDirection(45)).toBe('Nordeste');
+    expect(component.getWindDirection(90)).toBe('Leste');
+    expect(component.getWindDirection(135)).toBe('Sudeste');
+    expect(component.getWindDirection(180)).toBe('Sul');
+    expect(component.getWindDirection(225)).toBe('Sudoeste');
+    expect(component.getWindDirection(270)).toBe('Oeste');
+    expect(component.getWindDirection(315)).toBe('Noroeste');
+    expect(component.getWindDirection(360)).toBe('Norte');
   });
 
   it('should return correct humidity descriptions', () => {

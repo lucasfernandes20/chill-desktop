@@ -16,12 +16,23 @@ export class WeatherMenuComponent {
   @Input() weather?: Weather;
   @ViewChild(MatMenu, { static: true }) matMenu!: MatMenu;
 
-  getUvDescription(uvIndex: number): string {
-    if (uvIndex <= 2) return 'Baixo';
-    if (uvIndex <= 5) return 'Moderado';
-    if (uvIndex <= 7) return 'Alto';
-    if (uvIndex <= 10) return 'Muito Alto';
-    return 'Extremo';
+  getWindDescription(windSpeed: number): string {
+    if (windSpeed < 1) return 'Calmo';
+    if (windSpeed < 3.3) return 'Brisa Leve';
+    if (windSpeed < 5.5) return 'Brisa Suave';
+    if (windSpeed < 8) return 'Brisa Moderada';
+    if (windSpeed < 10.8) return 'Brisa Fresca';
+    if (windSpeed < 13.9) return 'Brisa Forte';
+    if (windSpeed < 17.2) return 'Vento Moderado';
+    if (windSpeed < 20.8) return 'Vento Fresco';
+    if (windSpeed < 24.5) return 'Vento Forte';
+    return 'Vento Muito Forte';
+  }
+
+  getWindDirection(degrees: number): string {
+    const directions = ['Norte', 'Nordeste', 'Leste', 'Sudeste', 'Sul', 'Sudoeste', 'Oeste', 'Noroeste'];
+    const index = Math.round(degrees / 45) % 8;
+    return directions[index];
   }
 
   getHumidityDescription(humidity: number): string {

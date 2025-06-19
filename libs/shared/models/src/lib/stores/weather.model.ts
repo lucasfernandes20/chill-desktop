@@ -4,9 +4,20 @@ export interface Weather {
   feelsLikeTemperature: Temperature;
   weatherCondition: WeatherCondition;
   isDaytime: boolean;
-  uvIndex: number;
   cloudCover: number;
   relativeHumidity: number;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  wind: {
+    speed: number;
+    direction: number;
+  };
+  visibility: number;
+  pressure: number;
+  precipitation: number;
+  locationName: string;
 }
 
 export interface WeatherCondition {

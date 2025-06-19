@@ -1,114 +1,60 @@
 import { TemperatureUnitEnum, Weather, WeatherConditionTypeEnum } from '../weather.model';
 
+// Interface baseada na documentação oficial da OpenWeather Current Weather API
+// https://openweathermap.org/current#fields_json
 export interface WeatherApiResponse {
-  lat: number;
-  lon: number;
-  timezone: string;
-  timezone_offset: number;
-  current: {
-    dt: number;
-    sunrise: number;
-    sunset: number;
-    temp: number;
-    feels_like: number;
-    pressure: number;
-    humidity: number;
-    dew_point: number;
-    uvi: number;
-    clouds: number;
-    visibility: number;
-    wind_speed: number;
-    wind_deg: number;
-    wind_gust?: number;
-    weather: Array<{
-      id: number;
-      main: string;
-      description: string;
-      icon: string;
-    }>;
-    rain?: {
-      '1h'?: number;
-    };
-    snow?: {
-      '1h'?: number;
-    };
+  coord: {
+    lon: number;
+    lat: number;
   };
-  minutely?: Array<{
-    dt: number;
-    precipitation: number;
+  weather: Array<{
+    id: number;
+    main: string;
+    description: string;
+    icon: string;
   }>;
-  hourly?: Array<{
-    dt: number;
+  base: string;
+  main: {
     temp: number;
     feels_like: number;
+    temp_min: number;
+    temp_max: number;
     pressure: number;
     humidity: number;
-    dew_point: number;
-    uvi: number;
-    clouds: number;
-    visibility: number;
-    wind_speed: number;
-    wind_deg: number;
-    wind_gust?: number;
-    weather: Array<{
-      id: number;
-      main: string;
-      description: string;
-      icon: string;
-    }>;
-    pop: number;
-  }>;
-  daily?: Array<{
-    dt: number;
+    sea_level?: number;
+    grnd_level?: number;
+  };
+  visibility: number;
+  wind: {
+    speed: number;
+    deg: number;
+    gust?: number;
+  };
+  rain?: {
+    '1h'?: number;
+  };
+  snow?: {
+    '1h'?: number;
+  };
+  clouds: {
+    all: number;
+  };
+  dt: number;
+  sys: {
+    type: number;
+    id: number;
+    country: string;
     sunrise: number;
     sunset: number;
-    moonrise: number;
-    moonset: number;
-    moon_phase: number;
-    summary: string;
-    temp: {
-      day: number;
-      min: number;
-      max: number;
-      night: number;
-      eve: number;
-      morn: number;
-    };
-    feels_like: {
-      day: number;
-      night: number;
-      eve: number;
-      morn: number;
-    };
-    pressure: number;
-    humidity: number;
-    dew_point: number;
-    wind_speed: number;
-    wind_deg: number;
-    wind_gust?: number;
-    weather: Array<{
-      id: number;
-      main: string;
-      description: string;
-      icon: string;
-    }>;
-    clouds: number;
-    pop: number;
-    rain?: number;
-    snow?: number;
-    uvi: number;
-  }>;
-  alerts?: Array<{
-    sender_name: string;
-    event: string;
-    start: number;
-    end: number;
-    description: string;
-  }>;
+  };
+  timezone: number;
+  id: number;
+  name: string;
+  cod: number;
 }
 
 const mapWeatherType = (data: WeatherApiResponse): WeatherConditionTypeEnum => {
-  const id = data.current.weather[0].id;
+  const id = data.weather[0].id;
 
   // Mapeamento baseado nos códigos de condição climática da OpenWeatherMap
   // https://openweathermap.org/weather-conditions
@@ -155,24 +101,35 @@ export const weatherRequestToWeather = (data: WeatherApiResponse): Weather => {
   const weather = {
     temperature: {
       unit: TemperatureUnitEnum.CELSIUS,
-      degrees: data.current.temp,
+      degrees: data.main.temp,
     },
     feelsLikeTemperature: {
       unit: TemperatureUnitEnum.CELSIUS,
-      degrees: data.current.feels_like,
+      degrees: data.main.feels_like,
     },
     weatherCondition: {
       icon: 'cloud_queue',
       description: {
-        text: data.current.weather[0].description,
+        text: data.weather[0].description,
         languageCode: 'pt',
       },
       type: mapWeatherType(data),
     },
-    isDaytime: data.current.dt > data.current.sunrise && data.current.dt < data.current.sunset,
-    uvIndex: data.current.uvi,
-    cloudCover: data.current.clouds / 100,
-    relativeHumidity: data.current.humidity,
+    isDaytime: data.dt > data.sys.sunrise && data.dt < data.sys.sunset,
+    cloudCover: data.clouds.all / 100,
+    relativeHumidity: data.main.humidity,
+    coordinates: {
+      latitude: data.coord.lat,
+      longitude: data.coord.lon,
+    },
+    wind: {
+      speed: data.wind.speed,
+      direction: data.wind.deg,
+    },
+    visibility: data.visibility,
+    pressure: data.main.pressure,
+    precipitation: data.rain?.['1h'] || data.snow?.['1h'] || 0,
+    locationName: data.name,
   };
 
   weather.weatherCondition.icon = mapWeatherIcon(weather.weatherCondition.type);

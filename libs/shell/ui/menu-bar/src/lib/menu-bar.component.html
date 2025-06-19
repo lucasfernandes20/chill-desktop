@@ -14,8 +14,12 @@
             >
           }
           @case (stateStatus.ERROR) {
-            <mat-icon data-testid="error-icon" aria-label="Erro" aria-hidden="true">error</mat-icon>
-            <span class="text-sm font-thin" data-testid="error-message">{{ weather.error }}</span>
+            <div class="flex items-center gap-0">
+              <mat-icon data-testid="error-icon" aria-label="Erro" aria-hidden="true" class="!text-base"
+                >error_outline</mat-icon
+              >
+              <span class="text-sm font-thin" data-testid="error-message">{{ weather.error }}</span>
+            </div>
           }
           @case (stateStatus.SUCCESS) {
             <button
@@ -38,13 +42,40 @@
         }
       }
 
-      <button mat-button class="flex items-center gap-1" aria-label="currency" data-testid="currency-button">
-        <mat-icon class="!text-sm !mr-0" data-testid="currency-icon" aria-label="Câmbio" aria-hidden="true">
-          currency_exchange
-        </mat-icon>
-        <span class="cdk-visually-hidden">Informações de câmbio</span>
-        <span data-testid="currency-value">1 USD = 5.25 BRL</span>
-      </button>
+      @if ($currency | async; as currency) {
+        @switch (currency.status) {
+          @case (stateStatus.LOADING || stateStatus.INITIAL) {
+            <mat-icon
+              class="animate-spin text-foreground"
+              aria-label="Carregando"
+              aria-hidden="true"
+              data-testid="loading-icon"
+              >sync</mat-icon
+            >
+          }
+          @case (stateStatus.ERROR) {
+            <button mat-button class="flex items-center gap-1" aria-label="currency" data-testid="currency-button">
+              <mat-icon class="!text-sm !mr-0" data-testid="currency-icon" aria-label="Câmbio" aria-hidden="true">
+                error_outline
+              </mat-icon>
+              <span class="cdk-visually-hidden">Informações de câmbio</span>
+              <span data-testid="currency-value">Erro ao carregar</span>
+            </button>
+          }
+          @case (stateStatus.SUCCESS) {
+            <button mat-button class="flex items-center gap-1" aria-label="currency" data-testid="currency-button">
+              <mat-icon class="!text-sm !mr-0" data-testid="currency-icon" aria-label="Câmbio" aria-hidden="true">
+                currency_exchange
+              </mat-icon>
+              <span class="cdk-visually-hidden">Informações de câmbio</span>
+              <span data-testid="currency-value"
+                >1 {{ currency.data?.fromCurrency }} = {{ currency.data?.rate?.toFixed(2) }}
+                {{ currency.data?.toCurrency }}</span
+              >
+            </button>
+          }
+        }
+      }
 
       @if ($currentDateTime | async; as dateTime) {
         @if (isValidDate(dateTime)) {

@@ -1,7 +1,12 @@
-<mat-menu #matMenu="matMenu" role="dialog" aria-label="Informações meteorológicas" data-testid="weather-menu">
+<mat-menu
+  #matMenu="matMenu"
+  role="dialog"
+  aria-label="Informações meteorológicas"
+  data-testid="weather-menu"
+  class="!min-w-[280px]"
+>
   @if (weather) {
     <div class="violet weather-menu-content bg-gradient-to-br from-primary/10 to-card/10 text-foreground">
-      <!-- Header com temperatura principal -->
       <header class="weather-header p-5 bg-gradient-to-br from-primary/5 to-transparent">
         <div class="temperature-section flex items-center gap-4 mb-4">
           <mat-icon
@@ -25,43 +30,49 @@
           <h1 class="description-text text-lg font-medium text-foreground block mb-2">
             {{ weather.weatherCondition.description.text | titlecase }}
           </h1>
-          <div class="day-indicator flex items-center gap-2 text-sm text-muted-foreground">
-            <mat-icon
-              class="time-icon text-base"
-              [style.color]="'hsl(var(--chart-3))'"
-              [attr.aria-label]="weather.isDaytime ? 'Período: dia' : 'Período: noite'"
-              role="img"
-            >
-              {{ weather.isDaytime ? 'wb_sunny' : 'nights_stay' }}
-            </mat-icon>
-            <span>{{ weather.isDaytime ? 'Dia' : 'Noite' }}</span>
+          <div class="day-indicator flex flex-col">
+            <div class="flex items-center text-sm text-muted-foreground">
+              <mat-icon
+                class="time-icon text-base"
+                [style.color]="'hsl(var(--chart-3))'"
+                [attr.aria-label]="weather.isDaytime ? 'Período: dia' : 'Período: noite'"
+                role="img"
+              >
+                {{ weather.isDaytime ? 'wb_sunny' : 'nights_stay' }}
+              </mat-icon>
+              <span>{{ weather.isDaytime ? 'Dia' : 'Noite' }}</span>
+            </div>
+
+            <div class="location-info flex items-center text-sm text-muted-foreground">
+              <mat-icon class="text-base" aria-hidden="true">location_on</mat-icon>
+              <span class="font-medium text-xs" aria-label="Localização">{{ weather.locationName }}</span>
+            </div>
           </div>
         </div>
       </header>
 
       <mat-divider role="separator"></mat-divider>
 
-      <!-- Detalhes do clima -->
       <main class="weather-details p-5 flex flex-col gap-4">
         <h2 class="cdk-visually-hidden">Detalhes meteorológicos</h2>
 
         <section
           class="detail-item flex items-start gap-3 p-3 rounded-xl bg-card/30 border border-border transition-all duration-200 hover:bg-card/50 hover:-translate-y-0.5"
         >
-          <mat-icon class="detail-icon text-xl mt-0.5 text-chart-2" aria-hidden="true"> visibility </mat-icon>
+          <mat-icon class="detail-icon text-xl mt-0.5 text-chart-2" aria-hidden="true"> air </mat-icon>
           <div class="detail-content flex flex-col gap-0.5 flex-1">
-            <span class="detail-label text-sm text-muted-foreground font-medium">UV Index</span>
+            <span class="detail-label text-sm text-muted-foreground font-medium">Vento</span>
             <span
               class="text-xl font-semibold text-foreground leading-tight"
-              data-testid="uv-index-value"
-              aria-label="UV Index"
-              >{{ weather.uvIndex }}</span
+              data-testid="wind-speed-value"
+              aria-label="Velocidade do vento"
+              >{{ weather.wind.speed.toFixed(1) }} m/s</span
             >
             <span
               class="text-xs text-muted-foreground/80 italic"
-              data-testid="uv-index-description"
-              aria-label="Descrição do UV Index"
-              >{{ getUvDescription(weather.uvIndex) }}</span
+              data-testid="wind-description"
+              aria-label="Descrição do vento"
+              >{{ getWindDescription(weather.wind.speed) }} • {{ getWindDirection(weather.wind.direction) }}</span
             >
           </div>
         </section>
@@ -109,11 +120,10 @@
         </section>
       </main>
 
-      <!-- Footer com informações adicionais -->
       <footer class="weather-footer px-5 py-4 bg-background/10 border-t border-border/10">
-        <div class="condition-type flex items-center gap-2">
+        <div class="condition-type flex items-center gap-1">
           <mat-icon class="condition-icon text-base text-muted-foreground" aria-hidden="true"> info </mat-icon>
-          <span class="condition-detail text-xs text-muted-foreground leading-relaxed">
+          <span class="condition-detail text-xs text-muted-foreground">
             {{ weather.weatherCondition.type }}
           </span>
         </div>
