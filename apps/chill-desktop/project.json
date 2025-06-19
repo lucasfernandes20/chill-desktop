@@ -44,8 +44,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "apps/chill-desktop/src/environments/environment.development.ts",
-              "with": "apps/chill-desktop/src/environments/environment.ts"
+              "replace": "apps/chill-desktop/src/environments/environment.ts",
+              "with": "apps/chill-desktop/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"

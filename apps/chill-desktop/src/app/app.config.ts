@@ -7,7 +7,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { reducers, WeatherEffects } from '@chill-desktop/data-acess';
 import { provideHttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 import { APP_ENVIRONMENT } from '@chill-desktop/shared/app-environment';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
