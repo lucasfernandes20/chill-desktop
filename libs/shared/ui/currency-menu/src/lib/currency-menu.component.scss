@@ -1,0 +1,65 @@
+:host {
+  .currency-menu-content {
+    .currency-header {
+      .exchange-section {
+        .currency-icon {
+          font-size: 2.5rem;
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+
+        .main-rate {
+          line-height: 1;
+        }
+      }
+    }
+
+    .currency-details {
+      .detail-item {
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-icon {
+          flex-shrink: 0;
+        }
+      }
+    }
+
+    .currency-controls {
+      .mat-mdc-select {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Customização específica para o tema violet
+.violet {
+  .currency-menu-content {
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--card) / 0.1));
+
+    .currency-header {
+      background: linear-gradient(135deg, hsl(var(--primary) / 0.05), transparent);
+    }
+
+    .detail-item {
+      background: hsl(var(--card) / 0.3);
+      border: 1px solid hsl(var(--border));
+
+      &:hover {
+        background: hsl(var(--card) / 0.5);
+      }
+    }
+
+    .currency-controls {
+      background: hsl(var(--background) / 0.05);
+    }
+
+    .currency-footer {
+      background: hsl(var(--background) / 0.1);
+      border-top: 1px solid hsl(var(--border) / 0.1);
+    }
+  }
+}

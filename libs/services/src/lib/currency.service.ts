@@ -18,9 +18,10 @@ export class CurrencyService {
     @Inject(APP_ENVIRONMENT) private appEnvironment: AppEnvironment
   ) {}
 
-  public getCurrencyExchangeRate(): Observable<CurrencyExchangeRate> {
-    return this.http
-      .get<CurrencyApiResponse>(this.appEnvironment.currencyApiUrl)
-      .pipe(map(currencyApiResponseToCurrencyExchangeRate), delay(2000));
+  public getCurrencyExchangeRate(toCurrency = 'BRL'): Observable<CurrencyExchangeRate> {
+    return this.http.get<CurrencyApiResponse>(this.appEnvironment.currencyApiUrl).pipe(
+      map((data) => currencyApiResponseToCurrencyExchangeRate(data, toCurrency)),
+      delay(2000)
+    );
   }
 }

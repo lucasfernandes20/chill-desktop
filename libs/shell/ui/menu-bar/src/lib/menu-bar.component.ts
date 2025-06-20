@@ -7,12 +7,13 @@ import { selectWeatherState, selectCurrencyState } from '@chill-desktop/data-ace
 import { StateStatus } from '@chill-desktop/shared/models';
 import { interval, map, Observable, shareReplay, startWith } from 'rxjs';
 import { WeatherMenuComponent } from '@chill-desktop/shared/ui/weather-menu';
+import { CurrencyMenuComponent } from '@chill-desktop/shared/ui/currency-menu';
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'chill-menu-bar',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, WeatherMenuComponent, MatMenuModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, WeatherMenuComponent, CurrencyMenuComponent, MatMenuModule],
   templateUrl: './menu-bar.component.html',
   styleUrl: './menu-bar.component.scss',
 })

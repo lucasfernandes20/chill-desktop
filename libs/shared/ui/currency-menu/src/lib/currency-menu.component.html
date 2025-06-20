@@ -1,0 +1,188 @@
+<mat-menu
+  #matMenu="matMenu"
+  role="dialog"
+  aria-label="Informações de câmbio"
+  data-testid="currency-menu"
+  class="!min-w-[320px]"
+>
+  @if (currency) {
+    <div class="violet currency-menu-content bg-gradient-to-br from-primary/10 to-card/10 text-foreground">
+      <header class="currency-header p-5 bg-gradient-to-br from-primary/5 to-transparent">
+        <div class="exchange-section flex items-center gap-4 mb-4">
+          <mat-icon class="currency-icon drop-shadow-sm text-chart-2" aria-label="Câmbio de moedas" role="img">
+            currency_exchange
+          </mat-icon>
+          <div class="exchange-info flex flex-col gap-1">
+            <span class="main-rate text-4xl font-light leading-none text-foreground">
+              {{ formatRate(currency.rate) }}
+            </span>
+            <span class="exchange-pair text-sm text-muted-foreground font-normal">
+              1 {{ currency.fromCurrency }} = {{ formatRate(currency.rate) }} {{ currency.toCurrency }}
+            </span>
+          </div>
+        </div>
+        <div class="currency-description">
+          <h1 class="description-text text-lg font-medium text-foreground block mb-2">
+            {{ getCurrencyName(currency.toCurrency) }}
+          </h1>
+          <div class="currency-indicator flex flex-col gap-1">
+            <div class="flex items-center text-sm text-muted-foreground">
+              <mat-icon
+                class="time-icon text-base"
+                [style.color]="'hsl(var(--chart-2))'"
+                aria-label="Última atualização"
+                role="img"
+              >
+                schedule
+              </mat-icon>
+              <span>{{ getLastUpdatedText(currency.lastUpdated) }}</span>
+            </div>
+
+            <div class="flex items-center text-sm text-muted-foreground">
+              <mat-icon
+                class="trend-icon text-base"
+                [style.color]="'hsl(var(--chart-3))'"
+                aria-label="Tendência"
+                role="img"
+              >
+                trending_flat
+              </mat-icon>
+              <span>Cotação estável</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <mat-divider role="separator"></mat-divider>
+
+      <main class="currency-details p-5 flex flex-col gap-4">
+        <h2 class="cdk-visually-hidden">Detalhes do câmbio</h2>
+
+        <section
+          class="detail-item flex items-start gap-3 p-3 rounded-xl bg-card/30 border border-border transition-all duration-200 hover:bg-card/50 hover:-translate-y-0.5"
+        >
+          <mat-icon class="detail-icon text-xl mt-0.5 text-chart-1" aria-hidden="true"> attach_money </mat-icon>
+          <div class="detail-content flex flex-col gap-0.5 flex-1">
+            <span class="detail-label text-sm text-muted-foreground font-medium">Moeda Base</span>
+            <span
+              class="text-xl font-semibold text-foreground leading-tight"
+              data-testid="from-currency-value"
+              aria-label="Moeda de origem"
+            >
+              {{ getCurrencySymbol(currency.fromCurrency) }} {{ currency.fromCurrency }}
+            </span>
+            <span
+              class="text-xs text-muted-foreground/80 italic"
+              data-testid="from-currency-name"
+              aria-label="Nome da moeda de origem"
+            >
+              Dólar Americano
+            </span>
+          </div>
+        </section>
+
+        <section
+          class="detail-item flex items-start gap-3 p-3 rounded-xl bg-card/30 border border-border transition-all duration-200 hover:bg-card/50 hover:-translate-y-0.5"
+        >
+          <mat-icon class="detail-icon text-xl mt-0.5 text-chart-4" aria-hidden="true"> currency_exchange </mat-icon>
+          <div class="detail-content flex flex-col gap-0.5 flex-1">
+            <span class="detail-label text-sm text-muted-foreground font-medium">Moeda de Destino</span>
+            <span
+              class="text-xl font-semibold text-foreground leading-tight"
+              data-testid="to-currency-value"
+              aria-label="Moeda de destino"
+            >
+              {{ getCurrencySymbol(currency.toCurrency) }} {{ currency.toCurrency }}
+            </span>
+            <span
+              class="text-xs text-muted-foreground/80 italic"
+              data-testid="to-currency-name"
+              aria-label="Nome da moeda de destino"
+            >
+              {{ getCurrencyName(currency.toCurrency) }}
+            </span>
+          </div>
+        </section>
+
+        <section
+          class="detail-item flex items-start gap-3 p-3 rounded-xl bg-card/30 border border-border transition-all duration-200 hover:bg-card/50 hover:-translate-y-0.5"
+        >
+          <mat-icon class="detail-icon text-xl mt-0.5 text-chart-3" aria-hidden="true"> calendar_today </mat-icon>
+          <div class="detail-content flex flex-col gap-0.5 flex-1">
+            <span class="detail-label text-sm text-muted-foreground font-medium">Data da Cotação</span>
+            <span
+              class="text-xl font-semibold text-foreground leading-tight"
+              data-testid="last-updated-date"
+              aria-label="Data da última atualização"
+            >
+              {{ currency.lastUpdated | date: 'dd/MM/yyyy' }}
+            </span>
+            <span
+              class="text-xs text-muted-foreground/80 italic"
+              data-testid="last-updated-time"
+              aria-label="Horário da última atualização"
+            >
+              {{ currency.lastUpdated | date: 'HH:mm' }}
+            </span>
+          </div>
+        </section>
+      </main>
+
+      <mat-divider role="separator"></mat-divider>
+
+      <section class="currency-controls p-5 bg-background/5">
+        <h3 class="text-sm font-medium text-foreground mb-3">Alterar Moeda</h3>
+        <div class="flex flex-col gap-3">
+          <mat-select
+            [value]="currency.toCurrency"
+            (selectionChange)="onCurrencyChange($event.value)"
+            placeholder="Selecione uma moeda"
+            aria-label="Selecionar moeda de destino"
+            class="w-full"
+          >
+            @for (currencyOption of availableCurrencies; track currencyOption.code) {
+              <mat-option [value]="currencyOption.code">
+                <div class="flex items-center gap-2">
+                  <span class="font-medium">{{ currencyOption.symbol }}</span>
+                  <span>{{ currencyOption.code }}</span>
+                  <span class="text-muted-foreground text-sm">{{ currencyOption.name }}</span>
+                </div>
+              </mat-option>
+            }
+          </mat-select>
+
+          <button
+            mat-button
+            (click)="onRefresh()"
+            class="flex items-center justify-center gap-2 w-full"
+            aria-label="Atualizar cotação"
+          >
+            <mat-icon class="text-base">refresh</mat-icon>
+            <span>Atualizar Cotação</span>
+          </button>
+        </div>
+      </section>
+
+      <footer class="currency-footer px-5 py-4 bg-background/10 border-t border-border/10">
+        <div class="source-info flex items-center gap-1">
+          <mat-icon class="source-icon text-base text-muted-foreground" aria-hidden="true"> info </mat-icon>
+          <span class="source-detail text-xs text-muted-foreground"> Dados fornecidos pela Currency API </span>
+        </div>
+      </footer>
+    </div>
+  } @else {
+    <div
+      class="bg-gradient-to-br from-primary/10 to-card/10"
+      role="alert"
+      aria-live="polite"
+      data-testid="no-currency-data"
+    >
+      <div class="py-10 px-5 text-center flex flex-col gap-2 text-muted-foreground">
+        <mat-icon class="mx-auto text-muted-foreground/50" aria-label="Sem dados de câmbio" role="img">
+          currency_exchange_off
+        </mat-icon>
+        <span class="text-sm font-medium">Dados de câmbio não disponíveis</span>
+      </div>
+    </div>
+  }
+</mat-menu>

@@ -54,16 +54,21 @@
             >
           }
           @case (stateStatus.ERROR) {
-            <button mat-button class="flex items-center gap-1" aria-label="currency" data-testid="currency-button">
-              <mat-icon class="!text-sm !mr-0" data-testid="currency-icon" aria-label="Câmbio" aria-hidden="true">
-                error_outline
-              </mat-icon>
-              <span class="cdk-visually-hidden">Informações de câmbio</span>
-              <span data-testid="currency-value">Erro ao carregar</span>
-            </button>
+            <div class="flex items-center gap-0">
+              <mat-icon data-testid="error-icon" aria-label="Erro" aria-hidden="true" class="!text-base"
+                >error_outline</mat-icon
+              >
+              <span class="text-sm font-thin" data-testid="error-message">{{ currency.error }}</span>
+            </div>
           }
           @case (stateStatus.SUCCESS) {
-            <button mat-button class="flex items-center gap-1" aria-label="currency" data-testid="currency-button">
+            <button
+              mat-button
+              class="flex items-center gap-1"
+              aria-label="currency informations"
+              data-testid="currency-button"
+              [matMenuTriggerFor]="currencyMenu.matMenu"
+            >
               <mat-icon class="!text-sm !mr-0" data-testid="currency-icon" aria-label="Câmbio" aria-hidden="true">
                 currency_exchange
               </mat-icon>
@@ -73,6 +78,7 @@
                 {{ currency.data?.toCurrency }}</span
               >
             </button>
+            <chill-currency-menu #currencyMenu [currency]="currency.data"></chill-currency-menu>
           }
         }
       }
