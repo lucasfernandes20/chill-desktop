@@ -1,6 +1,6 @@
 // scripts/generate-env.ts
-import { mkdirSync, writeFileSync } from 'fs';
-import { join } from 'path';
+const fs = require('fs');
+const path = require('path');
 
 const environment = process.env.NODE_ENV === 'production' ? 'environment.prod.ts' : 'environment.ts';
 
@@ -14,8 +14,8 @@ export const environment: AppEnvironment = {
 };
 `;
 
-const envPath = join(__dirname, '../apps/chill-desktop/src/environments');
-mkdirSync(envPath, { recursive: true });
-writeFileSync(join(envPath, environment), content);
+const envPath = path.join(__dirname, '../apps/chill-desktop/src/environments');
+fs.mkdirSync(envPath, { recursive: true });
+fs.writeFileSync(path.join(envPath, environment), content);
 
 console.log(`✔️ Arquivo ${environment} gerado com sucesso`);
