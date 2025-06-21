@@ -11,7 +11,7 @@
         <div class="exchange-section flex items-center gap-4 mb-4">
           <mat-icon class="currency-icon drop-shadow-sm text-chart-2" aria-hidden="true"> currency_exchange </mat-icon>
           <div class="exchange-info flex flex-col gap-1">
-            <span class="main-rate text-4xl font-light leading-none text-foreground">
+            <span class="main-rate text-4xl font-light leading-none text-foreground" data-testid="rate-value">
               {{ formatRate(currency.targetRate) }}
             </span>
             <span class="exchange-pair text-sm text-muted-foreground font-normal">
@@ -21,10 +21,10 @@
           </div>
         </div>
         <div class="currency-description">
-          <h1 class="description-text text-lg font-medium text-foreground block mb-2">
+          <h1 class="description-text text-lg font-medium text-foreground block mb-2" data-testid="currency-name">
             {{ getCurrencyName(currency.toCurrency) }}
           </h1>
-          <div class="flex items-center text-sm text-muted-foreground">
+          <div class="flex items-center text-sm text-muted-foreground" data-testid="last-updated-date">
             <mat-icon class="time-icon text-base" [style.color]="'hsl(var(--chart-3))'" aria-hidden="true">
               schedule
             </mat-icon>
@@ -65,7 +65,14 @@
             </mat-select>
           </mat-form-field>
 
-          <button mat-fab extended (click)="onRefresh()" class="w-full" aria-label="Atualizar cotação">
+          <button
+            mat-fab
+            extended
+            (click)="onRefresh()"
+            class="w-full"
+            aria-label="Atualizar cotação"
+            data-testid="refresh-button"
+          >
             <mat-icon aria-hidden="true">refresh</mat-icon>
             Atualizar Cotação
           </button>

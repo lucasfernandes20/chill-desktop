@@ -45,6 +45,10 @@ export class CurrencyMenuComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         filter((value) => !!value.fromCurrency && !!value.toCurrency),
+        filter(
+          (value) =>
+            value.fromCurrency !== this.currency?.fromCurrency || value.toCurrency !== this.currency?.toCurrency
+        ),
         distinctUntilChanged()
       )
       .subscribe(
