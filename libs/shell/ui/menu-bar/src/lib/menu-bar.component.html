@@ -5,20 +5,16 @@
       @if ($weather | async; as weather) {
         @switch (weather.status) {
           @case (stateStatus.LOADING || stateStatus.INITIAL) {
-            <mat-icon
-              class="animate-spin text-foreground"
-              aria-label="Carregando"
-              aria-hidden="true"
-              data-testid="loading-icon"
+            <mat-icon class="animate-spin text-foreground" aria-hidden="true" data-testid="weather-loading-icon"
               >sync</mat-icon
+            >
+            <span class="cdk-visually-hidden">Carregando</span>
             >
           }
           @case (stateStatus.ERROR) {
-            <div class="flex items-center gap-0">
-              <mat-icon data-testid="error-icon" aria-label="Erro" aria-hidden="true" class="!text-base"
-                >error_outline</mat-icon
-              >
-              <span class="text-sm font-thin" data-testid="error-message">{{ weather.error }}</span>
+            <div class="flex items-center gap-0" data-testid="weather-error">
+              <mat-icon data-testid="error-icon" aria-hidden="true" class="!text-base">error_outline</mat-icon>
+              <span class="text-sm font-thin" aria-label="Erro" data-testid="error-message">{{ weather.error }}</span>
             </div>
           }
           @case (stateStatus.SUCCESS) {
@@ -29,11 +25,10 @@
               data-testid="weather-button"
               [matMenuTriggerFor]="weatherMenu.matMenu"
             >
-              <mat-icon class="!text-sm !mr-0" data-testid="weather-icon" aria-label="Clima" aria-hidden="true">{{
+              <mat-icon class="!text-sm !mr-0" data-testid="weather-icon" aria-hidden="true">{{
                 weather.data.weatherCondition.icon
               }}</mat-icon>
-              <span class="cdk-visually-hidden">Informações do clima</span>
-              <span data-testid="weather-temperature"
+              <span data-testid="weather-temperature" aria-label="Temperatura"
                 >{{ formatNumberToDecimal(weather.data.temperature.degrees) }} {{ weather.data.temperature.unit }}</span
               >
             </button>
@@ -45,20 +40,15 @@
       @if ($currency | async; as currency) {
         @switch (currency.status) {
           @case (stateStatus.LOADING || stateStatus.INITIAL) {
-            <mat-icon
-              class="animate-spin text-foreground"
-              aria-label="Carregando"
-              aria-hidden="true"
-              data-testid="loading-icon"
+            <mat-icon class="animate-spin text-foreground" aria-hidden="true" data-testid="currency-loading-icon"
               >sync</mat-icon
             >
+            <span class="cdk-visually-hidden">Carregando</span>
           }
           @case (stateStatus.ERROR) {
-            <div class="flex items-center gap-0">
-              <mat-icon data-testid="error-icon" aria-label="Erro" aria-hidden="true" class="!text-base"
-                >error_outline</mat-icon
-              >
-              <span class="text-sm font-thin" data-testid="error-message">{{ currency.error }}</span>
+            <div class="flex items-center gap-0" data-testid="currency-error">
+              <mat-icon data-testid="error-icon" aria-hidden="true" class="!text-base">error_outline</mat-icon>
+              <span class="text-sm font-thin" data-testid="error-message" aria-label="Erro">{{ currency.error }}</span>
             </div>
           }
           @case (stateStatus.SUCCESS) {
@@ -69,11 +59,10 @@
               data-testid="currency-button"
               [matMenuTriggerFor]="currencyMenu.matMenu"
             >
-              <mat-icon class="!text-sm !mr-0" data-testid="currency-icon" aria-label="Câmbio" aria-hidden="true">
+              <mat-icon class="!text-sm !mr-0" data-testid="currency-icon" aria-hidden="true">
                 currency_exchange
               </mat-icon>
-              <span class="cdk-visually-hidden">Informações de câmbio</span>
-              <span data-testid="currency-value"
+              <span data-testid="currency-value" aria-label="Cotação"
                 >1 {{ currency.data.fromCurrency }} = {{ formatNumberToDecimal(currency.data.targetRate) }}
                 {{ currency.data.toCurrency }}</span
               >
