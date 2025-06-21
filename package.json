@@ -10,7 +10,8 @@
     "test:file:watch": "nx test $npm_config_project --testFile=$npm_config_file --skip-nx-cache --watch",
     "build": "nx run-many --target=build --all --configuration=production",
     "format": "prettier --write \"**/*.{ts,js,html,scss,css,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,js,html,scss,css,json,md}\""
+    "format:check": "prettier --check \"**/*.{ts,js,html,scss,css,json,md}\"",
+    "generate:env": "ts-node scripts/generate-env.ts"
   },
   "private": true,
   "dependencies": {
