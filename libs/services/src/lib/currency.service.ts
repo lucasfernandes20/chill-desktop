@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { delay, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import {
   AppEnvironment,
   CurrencyApiResponse,
@@ -18,10 +18,9 @@ export class CurrencyService {
     @Inject(APP_ENVIRONMENT) private appEnvironment: AppEnvironment
   ) {}
 
-  public getCurrencyExchangeRate(toCurrency = 'BRL'): Observable<CurrencyExchangeRate> {
-    return this.http.get<CurrencyApiResponse>(this.appEnvironment.currencyApiUrl).pipe(
-      map((data) => currencyApiResponseToCurrencyExchangeRate(data, toCurrency)),
-      delay(2000)
-    );
+  public getCurrencyExchangeRate(fromCurrency = 'USD', toCurrency = 'BRL'): Observable<CurrencyExchangeRate> {
+    return this.http
+      .get<CurrencyApiResponse>(`${this.appEnvironment.currencyApiUrl}/${fromCurrency.toLowerCase()}.json`)
+      .pipe(map((data) => currencyApiResponseToCurrencyExchangeRate(data, fromCurrency, toCurrency)));
   }
 }

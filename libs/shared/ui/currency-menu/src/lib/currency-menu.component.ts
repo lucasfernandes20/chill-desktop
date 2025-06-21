@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, inject } from '@angular/core';
+import { Component, Input, ViewChild, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule, MatMenu } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,24 +8,65 @@ import { MatSelectModule } from '@angular/material/select';
 import { A11yModule } from '@angular/cdk/a11y';
 import { Store } from '@ngrx/store';
 import { type CurrencyExchangeRate, AVAILABLE_CURRENCIES } from '@chill-desktop/shared/models';
-import { loadCurrencyAction } from '@chill-desktop/data-acess';
+import { changeCurrencyAction, loadCurrencyAction } from '@chill-desktop/data-acess';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil, distinctUntilChanged, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'chill-currency-menu',
-  imports: [CommonModule, MatMenuModule, MatIconModule, MatDividerModule, MatButtonModule, MatSelectModule, A11yModule],
+  imports: [
+    CommonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatSelectModule,
+    A11yModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './currency-menu.component.html',
   styleUrl: './currency-menu.component.scss',
 })
-export class CurrencyMenuComponent {
+export class CurrencyMenuComponent implements OnInit, OnDestroy {
   @Input() currency?: CurrencyExchangeRate;
   @ViewChild(MatMenu, { static: true }) matMenu!: MatMenu;
 
   private readonly store = inject(Store);
+  private readonly destroy$ = new Subject<void>();
   public readonly availableCurrencies = AVAILABLE_CURRENCIES;
+  public form = new FormGroup({
+    fromCurrency: new FormControl(),
+    toCurrency: new FormControl(),
+  });
 
-  getCurrencySymbol(currencyCode: string): string {
-    const currency = AVAILABLE_CURRENCIES.find((c) => c.code === currencyCode);
-    return currency?.symbol || currencyCode;
+  ngOnInit(): void {
+    this.form.valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((value) => !!value.fromCurrency && !!value.toCurrency),
+        distinctUntilChanged()
+      )
+      .subscribe(
+        (
+          selectedCurrency: Partial<{
+            fromCurrency: string | null;
+            toCurrency: string | null;
+          }>
+        ) => {
+          this.store.dispatch(
+            changeCurrencyAction({
+              fromCurrency: selectedCurrency.fromCurrency || 'USD',
+              toCurrency: selectedCurrency.toCurrency || 'BRL',
+            })
+          );
+        }
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   getCurrencyName(currencyCode: string): string {
@@ -33,37 +74,13 @@ export class CurrencyMenuComponent {
     return currency?.name || currencyCode;
   }
 
-  getLastUpdatedText(date: Date): string {
-    const now = new Date();
-    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
-
-    if (diffInMinutes < 1) return 'Agora mesmo';
-    if (diffInMinutes < 60) return `${diffInMinutes} min atrás`;
-
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) return `${diffInHours}h atrás`;
-
-    const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays === 1) return 'Ontem';
-    if (diffInDays < 7) return `${diffInDays} dias atrás`;
-
-    return date.toLocaleDateString('pt-BR');
-  }
-
-  onCurrencyChange(selectedCurrency: string): void {
-    console.log('Moeda selecionada:', selectedCurrency);
-    // TODO: Implementar ação para alterar moeda
-    // Por enquanto, apenas recarrega os dados
-    this.store.dispatch(loadCurrencyAction());
-  }
-
   onRefresh(): void {
-    this.store.dispatch(loadCurrencyAction());
-  }
-
-  getRateChangeIndicator(): 'up' | 'down' | 'neutral' {
-    // Por enquanto retorna neutro, mas pode ser expandido para mostrar tendência
-    return 'neutral';
+    this.store.dispatch(
+      loadCurrencyAction({
+        fromCurrency: this.currency?.fromCurrency || 'USD',
+        toCurrency: this.currency?.toCurrency || 'BRL',
+      })
+    );
   }
 
   formatRate(rate: number): string {

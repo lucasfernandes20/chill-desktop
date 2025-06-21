@@ -32,4 +32,8 @@ export class MenuBarComponent {
   isValidDate(value: unknown): value is Date {
     return value instanceof Date;
   }
+
+  formatNumberToDecimal(value: number): string {
+    return value.toFixed(2);
+  }
 }

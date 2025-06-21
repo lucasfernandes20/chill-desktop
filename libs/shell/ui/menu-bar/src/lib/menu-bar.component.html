@@ -30,11 +30,11 @@
               [matMenuTriggerFor]="weatherMenu.matMenu"
             >
               <mat-icon class="!text-sm !mr-0" data-testid="weather-icon" aria-label="Clima" aria-hidden="true">{{
-                weather.data?.weatherCondition?.icon
+                weather.data.weatherCondition.icon
               }}</mat-icon>
               <span class="cdk-visually-hidden">Informações do clima</span>
               <span data-testid="weather-temperature"
-                >{{ weather.data?.temperature?.degrees?.toFixed(0) }} {{ weather.data?.temperature?.unit }}</span
+                >{{ formatNumberToDecimal(weather.data.temperature.degrees) }} {{ weather.data.temperature.unit }}</span
               >
             </button>
             <chill-weather-menu #weatherMenu [weather]="weather.data"></chill-weather-menu>
@@ -74,8 +74,8 @@
               </mat-icon>
               <span class="cdk-visually-hidden">Informações de câmbio</span>
               <span data-testid="currency-value"
-                >1 {{ currency.data?.fromCurrency }} = {{ currency.data?.rate?.toFixed(2) }}
-                {{ currency.data?.toCurrency }}</span
+                >1 {{ currency.data.fromCurrency }} = {{ formatNumberToDecimal(currency.data.targetRate) }}
+                {{ currency.data.toCurrency }}</span
               >
             </button>
             <chill-currency-menu #currencyMenu [currency]="currency.data"></chill-currency-menu>

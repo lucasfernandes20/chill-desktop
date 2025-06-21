@@ -1,16 +1,20 @@
 export interface CurrencyExchangeRate {
   fromCurrency: string;
   toCurrency: string;
-  rate: number;
+  rates: {
+    [currencyCode: string]: number;
+  };
+  targetRate: number;
   lastUpdated: Date;
 }
 
-export interface CurrencyApiResponse {
+export type CurrencyApiResponse = {
   date: string;
-  usd: {
+} & {
+  [currencyCode: string]: {
     [currencyCode: string]: number;
   };
-}
+};
 
 export interface CurrencyOption {
   code: string;
@@ -20,6 +24,7 @@ export interface CurrencyOption {
 
 export const AVAILABLE_CURRENCIES: CurrencyOption[] = [
   { code: 'BRL', name: 'Real Brasileiro', symbol: 'R$' },
+  { code: 'USD', name: 'Dólar Americano', symbol: '$' },
   { code: 'EUR', name: 'Euro', symbol: '€' },
   { code: 'GBP', name: 'Libra Esterlina', symbol: '£' },
   { code: 'JPY', name: 'Iene Japonês', symbol: '¥' },
@@ -33,19 +38,22 @@ export const AVAILABLE_CURRENCIES: CurrencyOption[] = [
 
 export const currencyApiResponseToCurrencyExchangeRate = (
   data: CurrencyApiResponse,
+  fromCurrency = 'USD',
   toCurrency = 'BRL'
 ): CurrencyExchangeRate => {
-  const currencyKey = toCurrency.toLowerCase();
-  const rate = data.usd[currencyKey];
+  const fromCurrencyKey = fromCurrency.toLowerCase();
+  const rates = data[fromCurrencyKey];
+  const targetRate = rates[toCurrency.toLowerCase()];
 
-  if (!rate) {
+  if (!targetRate) {
     throw new Error(`Moeda ${toCurrency} não encontrada na resposta da API`);
   }
 
   return {
-    fromCurrency: 'USD',
+    fromCurrency: fromCurrency.toUpperCase(),
+    rates,
     toCurrency: toCurrency.toUpperCase(),
-    rate,
-    lastUpdated: new Date(data.date),
+    targetRate,
+    lastUpdated: new Date(data.date + 'T00:00:00'),
   };
 };
