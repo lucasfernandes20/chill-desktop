@@ -140,8 +140,8 @@ export const weatherRequestToWeather = (data: WeatherApiResponse): Weather => {
 const mapWeatherIcon = (type: WeatherConditionTypeEnum) => {
   const iconMap: Partial<Record<WeatherConditionTypeEnum, string>> = {
     [WeatherConditionTypeEnum.CLEAR]: 'wb_sunny',
-    [WeatherConditionTypeEnum.CLOUDY]: 'cloud',
-    [WeatherConditionTypeEnum.PARTLY_CLOUDY]: 'partly_cloudy_day',
+    [WeatherConditionTypeEnum.CLOUDY]: 'cloud_queue',
+    [WeatherConditionTypeEnum.PARTLY_CLOUDY]: 'cloud_queue',
     [WeatherConditionTypeEnum.MOSTLY_CLOUDY]: 'cloud_queue',
     [WeatherConditionTypeEnum.MOSTLY_CLEAR]: 'wb_sunny',
     [WeatherConditionTypeEnum.LIGHT_RAIN_SHOWERS]: 'water_drop',
