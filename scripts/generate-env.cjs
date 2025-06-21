@@ -4,8 +4,7 @@ const path = require('path');
 
 const environment = process.env.NODE_ENV === 'production' ? 'environment.prod.ts' : 'environment.ts';
 
-const content = `
-import { AppEnvironment } from '@chill-desktop/shared/models';
+const content = `import { AppEnvironment } from '@chill-desktop/shared/models';
 
 export const environment: AppEnvironment = {
   openWeatherApiKey: '${process.env.OPEN_WEATHER_API_KEY || ''}',
