@@ -1,0 +1,13 @@
+@use "@angular/material" as mat;
+
+:root {
+  .mat-mdc-menu-panel .mat-divider {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  @include mat.divider-overrides(
+    (
+      color: hsl(var(--foreground) / 0.2),
+    )
+  );
+}

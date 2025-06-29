@@ -44,3 +44,8 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .angular
+
+# Environment files
+apps/chill-desktop/src/environments/environment.ts
+.env
+.env.local

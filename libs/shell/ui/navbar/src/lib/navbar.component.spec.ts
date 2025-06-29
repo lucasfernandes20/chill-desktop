@@ -46,7 +46,7 @@ describe('NavbarComponent', () => {
   });
 
   it('should display correct app names in tooltips', () => {
-    const buttons = fixture.debugElement.queryAll(By.css('button[mat-fab]'));
+    const buttons = fixture.debugElement.queryAll(By.css('button[mat-mini-fab]'));
     expect(buttons[0].attributes['ng-reflect-message']).toBe('App 1');
 
     expect(buttons[1].attributes['ng-reflect-message']).toBe('App 2');
@@ -91,5 +91,42 @@ describe('NavbarComponent', () => {
 
     const addAppButton = fixture.debugElement.query(By.css('[data-testid="add-app-button"]'));
     expect(addAppButton).toBeTruthy();
+  });
+
+  // Testes de acessibilidade
+  it('should have navigation role and aria-label', () => {
+    const navElement = fixture.debugElement.query(By.css('div[role="navigation"]'));
+    expect(navElement).toBeTruthy();
+    expect(navElement.attributes['aria-label']).toBe('Barra de navegação de aplicativos');
+  });
+
+  it('should have aria-label attributes on app buttons', () => {
+    const buttons = fixture.debugElement.queryAll(By.css('button[mat-mini-fab]'));
+
+    expect(buttons[0].attributes['aria-label']).toBe('App 1');
+    expect(buttons[1].attributes['aria-label']).toBe('App 2');
+    expect(buttons[2].attributes['aria-label']).toBe('App 4');
+  });
+
+  it('should have visually hidden text for screen readers', () => {
+    const hiddenTexts = fixture.debugElement.queryAll(By.css('.cdk-visually-hidden'));
+    expect(hiddenTexts.length).toBe(3);
+    expect(hiddenTexts[0].nativeElement.textContent).toBe('App 1');
+    expect(hiddenTexts[1].nativeElement.textContent).toBe('App 2');
+    expect(hiddenTexts[2].nativeElement.textContent).toBe('App 4');
+  });
+
+  it('should mark decorative elements as aria-hidden', () => {
+    const decorativeElements = fixture.debugElement.queryAll(By.css('[aria-hidden="true"]'));
+    expect(decorativeElements.length).toBeGreaterThan(0);
+  });
+
+  it('should have aria-label on add app button when no apps are present', () => {
+    store.overrideSelector(selectApps, []);
+    store.refreshState();
+    fixture.detectChanges();
+
+    const addButton = fixture.debugElement.query(By.css('button[mat-mini-fab]'));
+    expect(addButton.attributes['aria-label']).toBe('Adicionar aplicativo');
   });
 });

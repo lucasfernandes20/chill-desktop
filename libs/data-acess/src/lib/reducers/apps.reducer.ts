@@ -9,7 +9,7 @@ export interface AppsState extends EntityState<AppItem> {
   error?: string;
 }
 
-export const initialState: AppsState = {
+const initialState: AppsState = {
   ids: Object.keys(appsList).map(Number),
   entities: appsList,
   status: StateStatus.INITIAL,

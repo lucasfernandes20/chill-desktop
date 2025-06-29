@@ -26,6 +26,17 @@ jobs:
       - name: 📦 Instalar dependências
         run: npm ci
 
+      - name: 🛠️ Instalar ts-node (para rodar o script)
+        run: npm install ts-node typescript --save-dev
+
+      - name: 🧪 Gerar arquivo de environment
+        run: npm run generate:env
+        env:
+          NODE_ENV: production
+          OPEN_WEATHER_API_KEY: ${{ secrets.OPEN_WEATHER_API_KEY }}
+          OPEN_WEATHER_API_URL: ${{ secrets.OPEN_WEATHER_API_URL }}
+          CURRENCY_API_URL: ${{ secrets.CURRENCY_API_URL }}
+
       - name: 🎨 Verificar formatação do código
         run: npm run format:check
 

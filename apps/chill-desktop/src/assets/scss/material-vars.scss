@@ -1,6 +1,7 @@
 @use "@angular/material" as mat;
 @use "sass:map";
 @use "./themes/violet.scss" as p;
+@use "./material-components/index.scss";
 // Include the core styles for Angular Material. This should be done once per application.
 @include mat.core();
 
@@ -8,10 +9,10 @@ html {
   @include mat.theme(
     (
       color: (
+        theme-type: dark,
         primary: p.$primary-palette,
         tertiary: p.$tertiary-palette,
       ),
-      color-scheme: dark,
       density: 0,
     )
   );

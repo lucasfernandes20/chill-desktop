@@ -5,7 +5,8 @@ module.exports = {
   content: [
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     join(__dirname, 'src/!(assets|styles)/**/*.scss'),
-    join(__dirname, 'libs/**/!(*.stories|*.spec).{ts,html}'),
+    join(__dirname, 'libs/**/!(*.component|*.spec).{ts,html}'),
+    join(__dirname, 'libs/**/**/!(*.component|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
@@ -42,6 +43,9 @@ module.exports = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      backgroundImage: {
+        'gradient-to-center': 'radial-gradient(circle, var(--tw-gradient-stops))',
       },
     },
   },

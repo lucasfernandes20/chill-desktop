@@ -1,20 +1,41 @@
-<div class="border border-border rounded-2xl p-4 w-min fixed bottom-7 left-1/2 -translate-x-1/2">
+<div
+  class="bg-background/50 backdrop-blur-sm border border-border rounded-2xl p-3 w-min fixed bottom-6 left-1/2 -translate-x-1/2"
+  role="navigation"
+  aria-label="Barra de navegação de aplicativos"
+>
   <ul class="flex items-center justify-between gap-3">
     @if (apps$ | async; as apps) {
       @if (apps.length > 0) {
         @for (app of apps; track app?.id) {
           @if (app?.isVisible) {
-            <li class="p-2 hover:scale-110 transition-all duration-300" data-testid="app-item">
-              <button mat-fab [matTooltip]="app?.name" [matTooltipPosition]="'above'">
-                <mat-icon>{{ app?.icon }}</mat-icon>
+            <li class="relative group transition-all duration-300" data-testid="app-item">
+              <button
+                mat-mini-fab
+                [attr.aria-label]="app?.name"
+                [matTooltip]="app?.name"
+                [matTooltipPosition]="'above'"
+                class="group-hover:-translate-y-2 group-hover:scale-110"
+              >
+                <mat-icon aria-hidden="true">{{ app?.icon }}</mat-icon>
+                <span class="cdk-visually-hidden">{{ app?.name }}</span>
               </button>
+              <div
+                class="hidden group-hover:block absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-foreground"
+                aria-hidden="true"
+              ></div>
             </li>
           }
         }
       } @else {
-        <li class="p-2 hover:scale-110 transition-all duration-300" data-testid="add-app-button">
-          <button mat-fab [matTooltip]="'Add app'" [matTooltipPosition]="'above'">
-            <mat-icon>add</mat-icon>
+        <li class="hover:scale-110 transition-all duration-300" data-testid="add-app-button">
+          <button
+            mat-mini-fab
+            aria-label="Adicionar aplicativo"
+            [matTooltip]="'Add app'"
+            [matTooltipPosition]="'above'"
+          >
+            <mat-icon aria-hidden="true">add</mat-icon>
+            <span class="cdk-visually-hidden">Adicionar aplicativo</span>
           </button>
         </li>
       }
