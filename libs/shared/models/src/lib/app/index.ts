@@ -1,1 +1,1 @@
-export * from './app-environment.mode';
+export * from './app-environment.model';
