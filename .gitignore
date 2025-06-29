@@ -47,6 +47,5 @@ Thumbs.db
 
 # Environment files
 apps/chill-desktop/src/environments/environment.ts
-apps/chill-desktop/src/environments/environment.prod.ts
 .env
 .env.local
