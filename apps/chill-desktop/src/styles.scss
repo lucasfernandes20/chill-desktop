@@ -16,7 +16,9 @@
 html,
 body {
   height: 100%;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
   line-height: 1.5;
 }
 
@@ -113,6 +115,14 @@ select:-webkit-autofill:focus {
 * {
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--muted)) hsl(var(--background));
+}
+
+*:focus-visible,
+.cdk-keyboard-focused {
+  outline-width: 2px !important;
+  outline-offset: 2px !important;
+  outline-style: solid !important;
+  outline-color: #fff !important;
 }
 
 @layer base {

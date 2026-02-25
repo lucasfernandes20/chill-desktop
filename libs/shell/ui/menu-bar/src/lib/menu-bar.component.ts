@@ -33,7 +33,11 @@ export class MenuBarComponent {
     return value instanceof Date;
   }
 
-  formatNumberToDecimal(value: number): string {
-    return value.toFixed(2);
+  formatNumberToDecimal(value: number, decimalPlaces = 2): string {
+    return value.toFixed(decimalPlaces);
+  }
+
+  formatTemperature(degrees: number, unit: string): string {
+    return `${Math.round(degrees)} ${unit}`;
   }
 }

@@ -209,7 +209,7 @@ describe('MenuBarComponent', () => {
       fixture.detectChanges();
       const weatherTemperature = fixture.nativeElement.querySelector('span[data-testid="weather-temperature"]');
       expect(weatherTemperature).toBeTruthy();
-      expect(weatherTemperature.textContent).toBe('19.13 °C');
+      expect(weatherTemperature.textContent).toBe('19 °C');
     });
 
     it('should render error icon when weather is error', () => {

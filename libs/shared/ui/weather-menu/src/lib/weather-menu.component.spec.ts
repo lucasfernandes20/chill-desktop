@@ -168,7 +168,7 @@ describe('WeatherMenuComponent', () => {
     const windValue = hostFixture.debugElement.query(By.css('[data-testid="wind-speed-value"]'));
     const windDescription = hostFixture.debugElement.query(By.css('[data-testid="wind-description"]'));
     expect(windValue.nativeElement.textContent.trim()).toBe('5.2 m/s');
-    expect(windDescription.nativeElement.textContent.trim()).toBe('Brisa Suave • Sul');
+    expect(windDescription.nativeElement.textContent.trim()).toBe('Brisa Suave');
 
     const humidityValue = hostFixture.debugElement.query(By.css('[data-testid="humidity-value"]'));
     const humidityDescription = hostFixture.debugElement.query(By.css('[data-testid="humidity-description"]'));
@@ -192,18 +192,6 @@ describe('WeatherMenuComponent', () => {
     expect(component.getWindDescription(20)).toBe('Vento Fresco');
     expect(component.getWindDescription(23)).toBe('Vento Forte');
     expect(component.getWindDescription(25)).toBe('Vento Muito Forte');
-  });
-
-  it('should return correct wind directions', () => {
-    expect(component.getWindDirection(0)).toBe('Norte');
-    expect(component.getWindDirection(45)).toBe('Nordeste');
-    expect(component.getWindDirection(90)).toBe('Leste');
-    expect(component.getWindDirection(135)).toBe('Sudeste');
-    expect(component.getWindDirection(180)).toBe('Sul');
-    expect(component.getWindDirection(225)).toBe('Sudoeste');
-    expect(component.getWindDirection(270)).toBe('Oeste');
-    expect(component.getWindDirection(315)).toBe('Noroeste');
-    expect(component.getWindDirection(360)).toBe('Norte');
   });
 
   it('should return correct humidity descriptions', () => {

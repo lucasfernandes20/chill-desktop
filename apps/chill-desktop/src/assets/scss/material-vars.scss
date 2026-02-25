@@ -13,6 +13,13 @@ html {
         primary: p.$primary-palette,
         tertiary: p.$tertiary-palette,
       ),
+      typography: (
+        plain-family: "Nunito",
+        brand-family: "Nunito",
+        bold-weight: 700,
+        medium-weight: 500,
+        regular-weight: 900,
+      ),
       density: 0,
     )
   );

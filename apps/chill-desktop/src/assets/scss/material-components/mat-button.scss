@@ -4,6 +4,7 @@
   .mat-mdc-button .mat-mdc-button-touch-target {
     height: 24px !important;
   }
+
   @include mat.button-overrides(
     (
       filled-container-height: 24px,
