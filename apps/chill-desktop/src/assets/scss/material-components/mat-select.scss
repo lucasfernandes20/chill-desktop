@@ -1,0 +1,33 @@
+// @use "@angular/material" as mat;
+
+// :root {
+//   .mat-mdc-form-field {
+//     --mat-form-field-container-height: 24px !important;
+//     --mat-form-field-container-vertical-padding: 8px !important;
+//     .mdc-text-field--filled {
+//       border-bottom-right-radius: 1rem;
+//       border-bottom-left-radius: 1rem;
+//       --mdc-filled-text-field-container-shape: 1rem;
+//     }
+//   }
+//   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+//     --mdc-filled-text-field-container-color: hsl(var(--card) / 0.2);
+//     backdrop-filter: blur(5px);
+//   }
+//   .mat-mdc-select-panel {
+//     backdrop-filter: blur(10px);
+//     border-radius: 1rem !important;
+//   }
+//   .mat-mdc-option {
+//     min-height: 36px !important;
+//   }
+//   .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+//     top: var(--mat-form-field-container-height);
+//   }
+//   @include mat.select-overrides(
+//     (
+//       panel-background-color: hsl(var(--background) / 0.5),
+//       trigger-text-size: 14px,
+//     )
+//   );
+// }

@@ -23,7 +23,10 @@
           }
         ],
         "styles": ["apps/chill-desktop/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": ["node_modules"]
+        }
       },
       "configurations": {
         "production": {

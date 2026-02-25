@@ -14,7 +14,18 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@chill-desktop/data-acess": ["libs/data-acess/src/index.ts"],
+      "@chill-desktop/services": ["libs/services/src/index.ts"],
+      "@chill-desktop/shared/app-environment": ["libs/shared/app-environment/src/index.ts"],
+      "@chill-desktop/shared/models": ["libs/shared/models/src/index.ts"],
+      "@chill-desktop/shared/ui/currency-menu": ["libs/shared/ui/currency-menu/src/index.ts"],
+      "@chill-desktop/shared/ui/weather-menu": ["libs/shared/ui/weather-menu/src/index.ts"],
+      "@chill-desktop/shell/ui/layout": ["libs/shell/ui/layout/src/index.ts"],
+      "@chill-desktop/shell/ui/main-content": ["libs/shell/ui/main-content/src/index.ts"],
+      "@chill-desktop/shell/ui/menu-bar": ["libs/shell/ui/menu-bar/src/index.ts"],
+      "@chill-desktop/shell/ui/navbar": ["libs/shell/ui/navbar/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

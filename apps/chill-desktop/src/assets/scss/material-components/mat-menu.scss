@@ -1,0 +1,16 @@
+@use "@angular/material" as mat;
+
+:root {
+  .mat-mdc-menu-panel {
+    backdrop-filter: blur(10px);
+    .mat-mdc-menu-content {
+      padding: 0;
+    }
+  }
+  @include mat.menu-overrides(
+    (
+      container-shape: 1rem,
+      container-color: hsl(var(--background) / 0.5),
+    )
+  );
+}

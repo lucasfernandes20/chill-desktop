@@ -1,0 +1,98 @@
+<mat-menu #matMenu="matMenu" data-testid="currency-menu" class="!min-w-[250px] !max-w-[300px]">
+  @if (currency) {
+    <div class="violet currency-menu-content bg-gradient-to-br from-primary/10 to-card/10 text-foreground">
+      <header class="currency-header p-5 bg-gradient-to-br from-primary/5 to-transparent">
+        <div class="exchange-section flex items-center gap-4 mb-4">
+          <mat-icon class="currency-icon drop-shadow-sm text-chart-2" aria-hidden="true"> currency_exchange </mat-icon>
+          <div class="exchange-info flex flex-col gap-1">
+            <span class="main-rate text-2xl font-light leading-none text-foreground" data-testid="rate-value">
+              {{ formatRate(currency.targetRate) }}
+            </span>
+            <span class="exchange-pair text-xs text-muted-foreground font-normal">
+              1 {{ currency.fromCurrency }} = {{ formatRate(currency.targetRate) }}
+              {{ currency.toCurrency }}
+            </span>
+          </div>
+        </div>
+        <div class="currency-description">
+          <h1 class="description-text text-base font-medium text-foreground block mb-2" data-testid="currency-name">
+            {{ getCurrencyName(currency.toCurrency) }}
+          </h1>
+          <div class="flex items-center text-xs text-muted-foreground" data-testid="last-updated-date">
+            <mat-icon class="time-icon text-sm" [style.color]="'hsl(var(--chart-3))'" aria-hidden="true">
+              schedule
+            </mat-icon>
+            <span>Atualizado em: {{ currency.lastUpdated | date: 'd MMM y' }}</span>
+          </div>
+        </div>
+      </header>
+
+      <mat-divider role="separator"></mat-divider>
+
+      <section class="currency-controls p-5 bg-background/5">
+        <h3 class="text-sm font-medium text-foreground mb-3">Alterar Moeda</h3>
+        <div class="flex flex-col" [formGroup]="form">
+          <mat-form-field class="w-full" (click)="$event.stopPropagation()">
+            <mat-label>Moeda de origem</mat-label>
+            <mat-select formControlName="fromCurrency">
+              @for (currencyOption of availableCurrencies; track currencyOption.code) {
+                <mat-option [value]="currencyOption.code" (click)="$event.stopPropagation()">
+                  <div class="flex items-center gap-2">
+                    <span>{{ currencyOption.code }}</span>
+                    <span class="text-muted-foreground text-sm">{{ currencyOption.name }}</span>
+                  </div>
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="w-full" (click)="$event.stopPropagation()">
+            <mat-label>Moeda de destino</mat-label>
+            <mat-select formControlName="toCurrency">
+              @for (currencyOption of availableCurrencies; track currencyOption.code) {
+                <mat-option [value]="currencyOption.code" (click)="$event.stopPropagation()">
+                  <div class="flex items-center gap-2">
+                    <span>{{ currencyOption.code }}</span>
+                    <span class="text-muted-foreground text-sm">{{ currencyOption.name }}</span>
+                  </div>
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <button
+            mat-fab
+            extended
+            (click)="onRefresh()"
+            class="w-full"
+            aria-label="Atualizar cotação"
+            data-testid="refresh-button"
+          >
+            <mat-icon aria-hidden="true">refresh</mat-icon>
+            Atualizar Cotação
+          </button>
+        </div>
+      </section>
+
+      <footer class="currency-footer px-5 py-4 bg-background/10 border-t border-border/10">
+        <div class="source-info flex items-center gap-1">
+          <mat-icon class="source-icon text-base text-muted-foreground" aria-hidden="true"> info </mat-icon>
+          <span class="source-detail text-xs text-muted-foreground"> Dados fornecidos pela Currency API </span>
+        </div>
+      </footer>
+    </div>
+  } @else {
+    <div
+      class="bg-gradient-to-br from-primary/10 to-card/10"
+      role="alert"
+      aria-live="polite"
+      data-testid="no-currency-data"
+    >
+      <div class="py-10 px-5 text-center flex flex-col gap-2 text-muted-foreground">
+        <mat-icon class="mx-auto text-muted-foreground/50" aria-label="Sem dados de câmbio" role="img">
+          currency_exchange_off
+        </mat-icon>
+        <span class="text-sm font-medium">Dados de câmbio não disponíveis</span>
+      </div>
+    </div>
+  }
+</mat-menu>

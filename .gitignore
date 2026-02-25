@@ -19,7 +19,7 @@ node_modules
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
+.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
@@ -44,3 +44,8 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .angular
+
+# Environment files
+apps/chill-desktop/src/environments/environment.ts
+.env
+.env.local
