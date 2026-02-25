@@ -29,12 +29,6 @@ export class WeatherMenuComponent {
     return 'Vento Muito Forte';
   }
 
-  getWindDirection(degrees: number): string {
-    const directions = ['Norte', 'Nordeste', 'Leste', 'Sudeste', 'Sul', 'Sudoeste', 'Oeste', 'Noroeste'];
-    const index = Math.round(degrees / 45) % 8;
-    return directions[index];
-  }
-
   getHumidityDescription(humidity: number): string {
     if (humidity < 30) return 'Muito Seco';
     if (humidity < 50) return 'Seco';

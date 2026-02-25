@@ -47,6 +47,9 @@ module.exports = {
       backgroundImage: {
         'gradient-to-center': 'radial-gradient(circle, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        sans: ['Nunito', 'sans-serif'],
+      },
     },
   },
   plugins: [],

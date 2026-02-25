@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { APP_ENVIRONMENT } from '@chill-desktop/shared/app-environment';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
+import { MAT_ICON_DEFAULT_OPTIONS } from '@angular/material/icon';
 registerLocaleData(localePT);
 
 export const appConfig: ApplicationConfig = {
@@ -26,6 +27,10 @@ export const appConfig: ApplicationConfig = {
     {
       provide: LOCALE_ID,
       useValue: 'pt-BR',
+    },
+    {
+      provide: MAT_ICON_DEFAULT_OPTIONS,
+      useValue: { fontSet: 'material-symbols-outlined' },
     },
 
     // NgRx configuration

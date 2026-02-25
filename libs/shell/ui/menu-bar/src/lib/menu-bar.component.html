@@ -25,12 +25,16 @@
               data-testid="weather-button"
               [matMenuTriggerFor]="weatherMenu.matMenu"
             >
-              <mat-icon class="!text-sm !mr-0" data-testid="weather-icon" aria-hidden="true">{{
-                weather.data.weatherCondition.icon
-              }}</mat-icon>
-              <span data-testid="weather-temperature" aria-label="Temperatura"
-                >{{ formatNumberToDecimal(weather.data.temperature.degrees) }} {{ weather.data.temperature.unit }}</span
+              <mat-icon
+                class="!text-sm !mr-0"
+                data-testid="weather-icon"
+                aria-hidden="true"
+                [fontIcon]="weather.data.weatherCondition.icon"
+                >{{ weather.data.weatherCondition.icon }}</mat-icon
               >
+              <span data-testid="weather-temperature" aria-label="Temperatura">{{
+                formatTemperature(weather.data.temperature.degrees, weather.data.temperature.unit)
+              }}</span>
             </button>
             <chill-weather-menu #weatherMenu [weather]="weather.data"></chill-weather-menu>
           }
@@ -74,7 +78,7 @@
 
       @if ($currentDateTime | async; as dateTime) {
         @if (isValidDate(dateTime)) {
-          <p class="text-sm font-thin" aria-label="data e hora" data-testid="date-time">
+          <p class="text-sm font-normal" aria-label="data e hora" data-testid="date-time">
             {{ dateTime | date: 'EEE dd MMM HH:mm a' }}
           </p>
         } @else {
